@@ -24,4 +24,4 @@ public class FormatDateTime {
     }
 }
 
-//    SimpleDateFormat sdf = new SimpleDateFormat();String d = sdf.format(Date date);Date d = sdf.parse(String sourse);
+//    SimpleDateFormat sdf = new SimpleDateFormat();String d = sdf.Format(Date date);Date d = sdf.parse(String sourse);
