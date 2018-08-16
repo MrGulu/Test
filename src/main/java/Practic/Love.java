@@ -1,4 +1,4 @@
-package main.java.Practic;
+package Practic;
 
 public interface Love {
     void sayLoveYou();

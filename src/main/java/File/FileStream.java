@@ -1,4 +1,4 @@
-package main.java.File;
+package File;
 
 import java.io.*;
 
@@ -11,7 +11,7 @@ public class FileStream {
     }
     public void aVoid() throws IOException {
         FileInputStream fileInputStream = new FileInputStream("aa.txt");
-        FileOutputStream fileOutputStream = new FileOutputStream("bb.txt",true);
+        FileOutputStream fileOutputStream = new FileOutputStream("bb.txt",true);//append表示是否在文件为追加
         int test = fileInputStream.read();
         System.out.println(test);        //读出来的是ASCII码对应字符的十进制表示
         System.out.println((char)test);  //强转之后读出来的就是字符

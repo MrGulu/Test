@@ -1,4 +1,4 @@
-package main.java.Proxy.JDKProxy;
+package Proxy.JDKProxy;
 
 public interface HelloWord {
     void sayHelloWorld();

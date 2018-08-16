@@ -1,4 +1,4 @@
-package main.java.Practic;
+package Practic;
 
 public class Test {
     public void testProxy(){

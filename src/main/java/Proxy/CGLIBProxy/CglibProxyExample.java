@@ -1,4 +1,4 @@
-package main.java.Proxy.CGLIBProxy;
+package Proxy.CGLIBProxy;
 
 public class CglibProxyExample   {
 }

@@ -1,4 +1,4 @@
-package main.java.String;
+package String;
 
 import java.util.logging.Logger;
 

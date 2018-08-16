@@ -1,4 +1,4 @@
-package main.java.Proxy.JDKProxy;
+package Proxy.JDKProxy;
 
 public class Test {
     public void testJdkProxy()

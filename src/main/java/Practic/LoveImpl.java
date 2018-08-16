@@ -1,4 +1,4 @@
-package main.java.Practic;
+package Practic;
 
 public class LoveImpl implements Love {
     @Override
