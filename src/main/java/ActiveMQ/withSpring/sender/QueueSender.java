@@ -31,3 +31,7 @@ public class QueueSender {
 		});
 	}
 }
+/*在上边的代码中，我们在发送Object对象时，我们发送的对象需要实现serializable接口。
+为什么一个类要实现serializable接口呢？
+一个类只有实现了serializable才是可以序列化的，通俗的讲实现了serializable接口后我们将可以把这个类，
+在网络上进行发送，或者将这个类存入到硬盘，序列化的目的就是保存一个对象。*/
