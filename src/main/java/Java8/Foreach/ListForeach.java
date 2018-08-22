@@ -40,7 +40,7 @@ public class ListForeach {
 //Output : A,B,C,D,E
         items2.forEach(System.out::println);
 
-//Steam and filter
+//Stream and filter
 //Output : B
         items2.stream()
                 .filter(s->s.contains("B"))
