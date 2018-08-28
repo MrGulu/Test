@@ -19,7 +19,7 @@ public class ProducerTest {
     private QueueSender queueSender;
 
     @Test
-    public void testSendMessage() {
+    public void sendMessageTest() {
         for (int i = 0; i < 5; i++) {
             queueSender.send(QueueName.TEST_QUEUE, "爱宝宝，哈哈哈！");
         }
