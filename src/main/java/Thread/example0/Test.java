@@ -1,4 +1,4 @@
-package Thread.example1;
+package Thread.example0;
 
 public class Test {
     @org.junit.Test
