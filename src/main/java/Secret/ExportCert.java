@@ -80,10 +80,10 @@ public class ExportCert {
         keyStore.load(new FileInputStream(keystoreFile), password.toCharArray());
 
         //条目别名
-        String alias = "test";
-        String exportCertFile = "D:\\workspace\\ExportCert\\test\\cert.txt";
-        String exportPrivateFile = "D:\\workspace\\ExportCert\\test\\privateKey.txt";
-        String exportPublicFile = "D:\\workspace\\ExportCert\\test\\publicKey.txt";
+        String alias = "allinpay";
+        String exportCertFile = "D:\\workspace\\ExportCert\\allinpay\\cert.txt";
+        String exportPrivateFile = "D:\\workspace\\ExportCert\\allinpay\\privateKey.txt";
+        String exportPublicFile = "D:\\workspace\\ExportCert\\allinpay\\publicKey.txt";
 
         ExportCert.exportCert(keyStore, alias, exportCertFile);
         //注意这里的密码是你的别名对应的密码，不指定的话就是你的keystore的解析密码
