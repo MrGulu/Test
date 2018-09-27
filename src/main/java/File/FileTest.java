@@ -1,6 +1,10 @@
 package File;
 
+import org.junit.Test;
+
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,9 +12,10 @@ import java.util.Date;
 public class FileTest {
     public static void main(String[] args) throws IOException {
         FileTest fileTest = new FileTest();
-        File file = new File("bb.txt");
+        File file = new File("cc.txt");
         System.out.println(file.exists());
-        file.createNewFile();
+        boolean b = file.createNewFile();
+        System.out.println(b);
         System.out.println(file.exists());
         System.out.println(file.getName());//获取文件的名字
         System.out.println(file.getAbsolutePath());//获取文件的绝对路径
@@ -19,26 +24,30 @@ public class FileTest {
         System.out.println(file.canRead());//文件是否可读
         System.out.println(file.canWrite());//文件是否可写
         System.out.println(file.length());//文件的长度
-        System.out.println("毫秒显示修改时间："+file.lastModified());//文件最后一次修改的时间
-        System.out.println("转换后显示修改时间："+fileTest.DateConverter(file.lastModified()));
+        System.out.println("毫秒显示修改时间：" + file.lastModified());//文件最后一次修改的时间
+        System.out.println("转换后显示修改时间：" + fileTest.DateConverter(file.lastModified()));
         System.out.println(file.isDirectory());//判断文件是否是一个目录
         System.out.println(file.isHidden());//文件是否隐藏
         System.out.println(file.isFile());//判断文件是否存在
 
-        file.delete();
+//        file.delete();
         System.out.println(file.exists());
 
         fileTest.fileNameList("D:\\");
-        fileTest.listFiles("D:\\workspace\\Test\\");
+//        fileTest.listFiles("D:\\workspace\\Test\\");
+//        fileTest.listFiles("D:"+File.separator+"workspace"+File.separator+"Test");
+        fileTest.listFiles("D"+File.pathSeparator+File.separator+"workspace"+File.separator+"Test");
     }
-    public String DateConverter(long time){
+
+    public String DateConverter(long time) {
 //        long tmp_time = time + 5000*1000;
         long tmp_time = time;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH：mm：ss");
         Date date = new Date(tmp_time);
         return simpleDateFormat.format(date);
     }
-    public void fileNameList(String s){
+
+    public void fileNameList(String s) {
         File file = new File(s);
         String[] filelist = file.list();
         /*只是名字，不可以操作，而下面函数的listFiles，
@@ -49,6 +58,7 @@ public class FileTest {
             System.out.println(ss);
         }
     }
+
     public void listFiles(String s) {
         File file = new File(s);
         File[] files = file.listFiles();
@@ -57,5 +67,17 @@ public class FileTest {
                 files) {
             System.out.println(f);
         }
+    }
+
+    @Test
+    public void test1() {
+//        我们可以通过读取user.dir系统属性来获取JVM的当前工作目录
+        String workingDir = System.getProperty("user.dir");
+        System.out.println(workingDir);
+    }
+    @Test
+    public void test2() throws FileNotFoundException {
+        File file = new File("bbb.txt");
+        file.renameTo(new File("FileReaderTestOut.txt"));
     }
 }

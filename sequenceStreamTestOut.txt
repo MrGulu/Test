@@ -1,0 +1,42 @@
+------Begin Certificate-----
+ MIIDcTCCAlmgAwIBAgIEMaqKCzANBgkqhkiG9w0BAQUFADBpMQswCQYDVQQGEwJDTjERMA8GA1UE
+CBMIU2hhbkRvbmcxEDAOBgNVBAcTB1FpbmdEYW8xDzANBgNVBAoTBkFwaWh1YjEPMA0GA1UECxMG
+Y2F4aW5zMRMwEQYDVQQDEwpBcGlodWJUZXN0MB4XDTE4MDkyNTA5NTUwN1oXDTI4MDkyMjA5NTUw
+N1owaTELMAkGA1UEBhMCQ04xETAPBgNVBAgTCFNoYW5Eb25nMRAwDgYDVQQHEwdRaW5nRGFvMQ8w
+DQYDVQQKEwZBcGlodWIxDzANBgNVBAsTBmNheGluczETMBEGA1UEAxMKQXBpaHViVGVzdDCCASIw
+DQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJTNe3t97TSj12LuA6henmuUKaKgWuk2gCloGDDS
+wbfjKHhNoqPlMmaZrwocuEpixOuqrtfs4Ky/0CMU+P18EZ6i9+wFvHavKtoWPp8lTq5dlBfKoMsI
+/QPlLH9LDBqxeE3XhBkerCSoyPSXKaMJDy2RvTO6mfIO45H/oVaA/smbqwEdLZT8J09qhe1zDWn4
+5WntFWOt0HZeR+YpQGgVGVpxC/OjIcmdyWfjjO+3yjEiHgW8GLm5ySGGNoGvaTjaH0Mjzkewx+2W
+vMTUzdVpuMzHxKJa36AKYpkHieyGI51ObF75D0WzRPCu/uE9FRJa+5mRXRg795b1XvHKhm2cS1UC
+AwEAAaMhMB8wHQYDVR0OBBYEFCtPty9HRcyieQq9XO3GXJLqXG2qMA0GCSqGSIb3DQEBBQUAA4IB
+AQBARhwaCsOPCL0n0A/t6eb6jSlnuzwSBJe62YN9KU55ePYt6hV1gIqwkxPOaC0P3hVUgTGqWf3y
+QT2Or086FApkZlVPYDIxHWjmtvy9OE1q3QEVst4wDpGcNiEV8z+Fp05EfZ6bdJsS9ConhIizDbam
+XniYGnTsXx5CmOTZEoTeOiaFsJbg9ZGvelEzwUIgo/RIQFyEODPOTAXcKBQ73vmyIWzXp2gvLYmG
+BIiUwfBEKFcvZM/+82RWQoXI/DsaNQz2RIgMiF5/GZbvPmvlMaKSwoUu2xz0ZyoB4W3H5OT4O1sJ
+MrFXtkIr7XdxtO0PNOScXCPDZw2gwSkTRHAvCnUi
+-----End Certificate-----你好，世界！~
+【宝付】
+
+宝付单笔代扣 及 查询接口：https://vgw.baofoo.com/cutpayment/api/backTransRequest   /apihub-web/boofoo/cutPayment
+
+宝付批量代扣 及 查询接口：https://vgw.baofoo.com/batchpay/api/batchTransRequest    /apihub-web/boofoo/batchpay
+
+宝付预绑卡接口：https://vgw.baofoo.com/cutpayment/protocol/backTransRequest			/apihub-web/boofoo/protocol
+
+宝付确认绑卡接口：https://vgw.baofoo.com/cutpayment/protocol/backTransRequest		/apihub-web/boofoo/protocol
+
+宝付协议单笔代扣 及 查询接口：https://vgw.baofoo.com/cutpayment/protocol/backTransRequest 	/apihub-web/boofoo/protocol
+
+宝付协议批量代扣 及 查询接口：https://vgw.baofoo.com/batchpay/api/batchTransRequest    /apihub-web/boofoo/batchpay
+
+【通联】
+
+通联单笔代扣 及 查询接口：https://113.108.182.3/aipg/ProcessServlet
+
+通联批量代扣 及 查询接口：https://113.108.182.3/aipg/ProcessServlet
+
+通联协议单笔代扣 及 查询接口：https://113.108.182.3/aipg/quickpay
+
+
+
