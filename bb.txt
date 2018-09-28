@@ -1,1 +1,242 @@
-6 7 8 9 10
+6 7 8 9 106 7 8 9 10
+package com.caxs.mdd.loan.appl.service;
+
+import com.caxs.mdd.base.domain.ApplFundsInfo;
+import com.caxs.mdd.base.domain.BaseConstant;
+import com.caxs.mdd.base.service.IApplFundsInfoService;
+import com.caxs.mdd.base.service.serial.StringUtil;
+import com.caxs.mdd.common.constant.RspCodeEnum;
+import com.caxs.mdd.exception.BusinessException;
+import com.caxs.mdd.loan.appl.dao.ApplAccInfoMapper;
+import com.caxs.mdd.loan.appl.domain.ApplAccInfo;
+import com.caxs.mdd.webankCheck.domain.WebankCheck;
+import com.caxs.mdd.webankCheck.service.IWebankCheckService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+
+/**
+ * Created by lenovo on 2017/10/31.
+ */
+@Component
+public class ApplAccInfoService implements IApplAccInfoService {
+    private static final Logger logger = LoggerFactory.getLogger(ApplAccInfoService.class);
+    @Autowired
+    private ApplAccInfoMapper applAccInfoMapper;
+    @Autowired
+    private IApplFundsInfoService applFundsInfoService;
+    @Autowired
+    private IWebankCheckService webankCheckService;
+
+    @Override
+    public ApplAccInfo selectByApplSeq(BigDecimal applSeq) {
+        return applAccInfoMapper.selectByApplSeq(applSeq);
+    }
+
+
+    @Override
+    public int updateByApplSeq(ApplAccInfo record) {
+        return applAccInfoMapper.updateByApplSeq(record);
+    }
+
+    @Override
+    public String getRepayInfo(String applSeq) {
+        String repayInfo = "Y";
+        int a[] = new int[5];
+        int index =0;
+        Map<String, Object> repayInfoMap;
+        try {
+            List<Map<String, Object>> repayInfoList = applAccInfoMapper.getRepayInfo(new BigDecimal(applSeq));
+            if (repayInfoList != null) {
+                if (repayInfoList.size() > 0) {
+                    //因为所有的数据导入的时间都是同一个时间,获取第一个即可
+                    repayInfoMap = repayInfoList.get(0);
+                    logger.info("repayInfoMap---->", repayInfoMap);
+                    if (repayInfoMap.size() > 0) {
+                        Set repaySet = repayInfoMap.keySet();
+                        Iterator it = repaySet.iterator();
+                        while (it.hasNext()) {
+                            Object i = it.next();
+                            if("APPL_AC_NAM".equals(i) && !"".equals(repayInfoMap.get(i).toString())) {
+                                a[0]=1;
+                                continue;
+                            }
+                            if("APPL_AC_BANK".equals(i) && !"".equals(repayInfoMap.get(i).toString())) {
+                                a[1]=1;
+                                continue;
+                            }
+                            if("APPL_CARD_NO".equals(i) && !"".equals(repayInfoMap.get(i).toString())) {
+                                a[2]=1;
+                                continue;
+                            }
+                            if("CUST_MOBLIE".equals(i) && !"".equals(repayInfoMap.get(i).toString())) {
+                                a[3]=1;
+                                continue;
+                            }
+                            if("OUT_STS".equals(i) && !"".equals(repayInfoMap.get(i).toString())) {
+                                a[4]=Integer.parseInt(repayInfoMap.get(i).toString());
+                                continue;
+                            }
+                            logger.info("it.next:" + i + " repayInfoMap.get(i).toString():" + repayInfoMap.get(i).toString());
+                        }
+                        if (a[4]==16){
+                            for (int j=0;j<3;j++) {
+                                if(a[j]!=1){
+                                    return "N";
+                                }
+                            }
+                        }else {
+                            for (int j=0;j<4;j++)
+                            {
+                                if(a[j]!=1){
+                                    return "N";
+                                }
+                            }
+                        }
+                    }
+
+                    ApplFundsInfo applFundsInfo = applFundsInfoService.findRecentApplFundsInfo(new BigDecimal(applSeq));
+                    String beginCapInstuCde = applFundsInfo.getBeginCapInstuCde();
+                    logger.info("applSeq:{},发起方:{}", applSeq, beginCapInstuCde);
+                    if(!StringUtil.isEmpty(beginCapInstuCde)){
+                        switch(beginCapInstuCde){
+                            case BaseConstant.ziFang_zh:
+                                if(!BaseConstant.PAYMENT_CHANNEL_ZHXT.equals(repayInfoMap.get("PAYMENT_CHANNEL"))){
+                                    return "N";
+                                }
+                                break;
+                            case BaseConstant.ziFang_ca:
+                                if("ZYYH".equals(applFundsInfo.getCooperCapInstuCde())){
+                                    String applAcBank = (String) repayInfoMap.get("APPL_AC_BANK");
+                                    if(BaseConstant.AC_BANK_CDE_ZYYH.equals(applAcBank)){
+                                        if(!BaseConstant.PAYMENT_CHANNEL_THEMIS.equals(repayInfoMap.get("PAYMENT_CHANNEL"))) {
+                                            return "N";
+                                        }
+                                    }else if(!BaseConstant.PAYMENT_CHANNEL_CA.equals(repayInfoMap.get("PAYMENT_CHANNEL"))){
+                                       return "N";
+                                    }
+                                }else{
+                                    if(!BaseConstant.PAYMENT_CHANNEL_CA.equals(repayInfoMap.get("PAYMENT_CHANNEL"))){
+                                        return "N";
+                                    }
+                                }
+                                break;
+                            case BaseConstant.ziFang_wz:
+                                if(BaseConstant.PAYMENT_CHANNEL_THEMIS.equals(repayInfoMap.get("PAYMENT_CHANNEL"))){
+                                    WebankCheck webankCheck = webankCheckService.selectByApplSeq(applSeq);
+                                    if(webankCheck != null){
+                                        if(!webankCheck.getCustName().equals(repayInfoMap.get("APPL_AC_NAM"))
+                                                || !webankCheck.getIdNo().equals(repayInfoMap.get("APPL_ID_NO"))
+                                                || !webankCheck.getLbcaBankCardNo().equals(repayInfoMap.get("APPL_CARD_NO"))
+                                                || !webankCheck.getMobile().equals(repayInfoMap.get("CUST_MOBLIE"))){
+                                            return "N";
+                                        }
+                                    }else{
+                                        return "N";
+                                    }
+                                }else{
+                                    return "N";
+                                }
+                                break;
+                            default:
+                                logger.info("还款信息是否完善校验有误！applSeq:{},发起方:{}", applSeq, beginCapInstuCde);
+                                return "N";
+                        }
+                    }
+                }else {
+                    return "N";
+                }
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return repayInfo;
+    }
+
+    @Override
+    public int updateAccInfoByApplSeq(ApplAccInfo record) {
+        logger.info("[ApplAccInfo数据]" + "Service:updateAccInfoByApplSeq方法:"+record.toString());
+        return applAccInfoMapper.updateAccInfoByApplSeq(record);
+    }
+
+    @Override
+    public int insertAccInfoByApplSeq(ApplAccInfo record) {
+        logger.info("[ApplAccInfo数据]" + "Service:insertAccInfoByApplSeq方法:"+record.toString());
+        return applAccInfoMapper.insertAccInfoByApplSeq(record);
+    }
+
+    @Override
+    public String selectSequenceNext() {
+        return applAccInfoMapper.selectSequenceNext();
+    }
+
+    @Override
+    public int selectCountByApplSeq(BigDecimal applSeq) {
+        return applAccInfoMapper.selectCountByApplSeq(applSeq);
+    }
+
+    @Override
+    public int modifyAccBankInfo(ApplAccInfo record) {
+        logger.info("[ApplAccInfo数据]" + "Service:modifyAccBankInfo方法:"+record.toString());
+        String applAccInfoSeq = "";
+        BigDecimal applAccInfoSeqBig = null;
+        try{
+            applAccInfoSeq = this.selectSequenceNext();
+
+            if(applAccInfoSeq!=null && !"".equals(applAccInfoSeq)){
+                applAccInfoSeqBig = new BigDecimal(applAccInfoSeq);
+            }
+            logger.info("[查询applAccInfoSeq成功]" + "applAccInfoService->modifyAccBankInfo");
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.info("[查询applAccInfoSeq异常]" + "applAccInfoService->modifyAccBankInfo");
+        }
+
+        record.setApplAcSeq(applAccInfoSeqBig);
+
+        int count = -1;
+        int flag;
+        try {
+            count = this.selectCountByApplSeq(record.getApplSeq());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (count > 0) {
+            flag = this.updateAccInfoByApplSeq(record);
+        } else {
+            flag = this.insertAccInfoByApplSeq(record);
+        }
+        return flag;
+    }
+
+    @Override
+    public int updateSendCmisStsByApplSeq(String applSeq,String sendCmisSts){
+        try{
+            return applAccInfoMapper.updateSendCmisStsByApplSeq(applSeq,sendCmisSts);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new BusinessException(RspCodeEnum.ERR69999,"操作数据库异常","更新还款信息异常");
+        }
+    }
+
+    @Override
+    public ApplAccInfo selectRepayInfo(BigDecimal applSeq) {
+        return applAccInfoMapper.selectRepayInfo(applSeq);
+    }
+
+    @Override
+    public int selectAccInfoHaveOrnot(ApplAccInfo applAccInfo) {
+        return applAccInfoMapper.selectAccInfoHaveOrnot(applAccInfo);
+    }
+
+}

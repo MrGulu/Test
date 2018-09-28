@@ -71,7 +71,7 @@ public class FileTest {
 
     @Test
     public void test1() {
-//        我们可以通过读取user.dir系统属性来获取JVM的当前工作目录
+//        我们可以通过读取user.dir系统属性来获取JVM的当前工作目录,然后通过代码建立新文件时，都会在这个工作目录下
         String workingDir = System.getProperty("user.dir");
         System.out.println(workingDir);
     }
