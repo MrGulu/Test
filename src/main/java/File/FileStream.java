@@ -3,7 +3,9 @@ package File;
 import org.junit.Test;
 
 import java.io.*;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.Vector;
 
 public class FileStream {
     @Test
@@ -90,17 +92,72 @@ public class FileStream {
         while ((b = byteArrayInputStream.read()) != -1) {
             byteArrayOutputStream.write(b);
         }
+        /*
+         在上面写入到ByteArrayOutputStream之后，用toByteArray转化为字节数组并用一个
+         新的字节数组接收
+        */
         bytes1 = byteArrayOutputStream.toByteArray();
         System.out.println(Arrays.toString(bytes1));
 
         String str = "tang";
         ByteArrayInputStream byteArrayInputStream1 = new ByteArrayInputStream(str.getBytes("UTF-8"));
         ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
-        int ch = 0;
+        int ch;
         while ((ch = byteArrayInputStream1.read()) != -1) {
             byteArrayOutputStream1.write(ch);
         }
+        //在上面写入到ByteArrayOutputStream之后，用toString转化为字符串并输出
         System.out.println(byteArrayOutputStream1.toString());
+        byteArrayInputStream.close();
+        byteArrayOutputStream.close();
+    }
+
+    /*
+    * 如何处理过时的StringBufferInputStream-->用ByteArrayInputStream代替
+    * */
+    /*
+    * 还需要注意一个问题，为什么要用UTF-8，本人的源程序是GBK格式的，但是用str.getBytes("GBK")就是不行，
+    * 字符串显示不出来。经过反复试验，基本认定是因为源程序要编译后才运行，编译后，里面的字符串存储的格式全部是unicode了。
+    * 所以需要用UTF-8
+    * */
+    @Test
+    public void execute() throws Exception {
+        StringBufferInputStream inputStream = new StringBufferInputStream("Hello World! This is a text string response from a Struts 2 Action.");
+        String str = new String("中文stream");
+        ByteArrayInputStream inputStreamNEW = new ByteArrayInputStream(str.getBytes("UTF-8"));
+        System.out.println(inputStreamNEW.toString());
+    }
+
+    @Test
+    public void dataInputStreamTest() throws IOException {
+        byte b = 65;
+        short s = 66;
+        int i = 67;
+        long l = 68;
+//        float f = 69;
+//        double d = 70;
+//        boolean b1 = true;
+//        char c = '中';
+        DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream("dataStreamTest.txt"));
+        dataOutputStream.writeByte(b);
+        dataOutputStream.writeShort(s);
+        dataOutputStream.writeInt(i);
+        dataOutputStream.writeLong(l);
+//        dataOutputStream.writeFloat(f);
+//        dataOutputStream.writeDouble(d);
+//        dataOutputStream.writeBoolean(b1);
+//        dataOutputStream.writeChar(c);
+        DataInputStream dataInputStream = new DataInputStream(new FileInputStream("dataStreamTest.txt"));
+        byte rb = dataInputStream.readByte();
+        short rs = dataInputStream.readShort();
+        int ri = dataInputStream.readInt();
+        long rl = dataInputStream.readLong();
+//        float rf = dataInputStream.readFloat();
+//        double rd = dataInputStream.readDouble();
+//        boolean rb1 = dataInputStream.readBoolean();
+//        char rc = dataInputStream.readChar();
+        System.out.println("输出：\r\n" + rb + "\t" + rs + "\t" + ri + "\t" + rl);
+//        System.out.println("输出：\r\n"+rb+"\t"+rs+"\t"+ri+"\t"+rl+"\t"+rf+"\t"+rd+"\t"+rb1+"\t"+rc);
     }
 
     /**
@@ -151,6 +208,70 @@ public class FileStream {
         bufferedReader.close();
         bufferedWriter.close();
     }
+
+    @Test
+    public void inputStreamReaderTest() throws IOException {
+//        使用new FileOutputStream时，如果不存在文件，则会创建
+        InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream("InputStreamReaderTestIn.txt"));
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream("OutputStreamWriterTestOut.txt"));
+        int b;
+        while ((b = inputStreamReader.read()) != -1) {
+            outputStreamWriter.write(b);
+        }
+        outputStreamWriter.flush();
+        inputStreamReader.close();
+        outputStreamWriter.close();
+    }
+
+
+    /*
+    * 当你有一组应用程序接口（API）只允许用Writer或Reader作为输入，但你又想使用String，
+    * 这时可以用StringWriter或StringReader。
+    * Writer类输出数据到一个文件；不过有时候数据必须保留在内存中，比如想在数据被输出以前在图形用户界面（GUI）上
+    * 先显示一下，这时可以用StringWriter。StringWriter不是把数据写到某种形式的输出设备上，相反，它写到内存中。
+    * */
+    @Test
+    public void stringReaderTest() throws IOException {
+        StringReader stringReader = new StringReader("" +
+                "                   _ooOoo_\n" +
+                "                  o8888888o\n" +
+                "                  88\" . \"88\n" +
+                "                  (| -_- |)\n" +
+                "                  O\\  =  /O\n" +
+                "               ____/`---'\\____\n" +
+                "             .'  \\\\|     |//  `.\n" +
+                "            /  \\\\|||  :  |||//  \\\n" +
+                "           /  _||||| -:- |||||-  \\\n" +
+                "           |   | \\\\\\  -  /// |   |\n" +
+                "           | \\_|  ''\\---/''  |   |\n" +
+                "           \\  .-\\__  `-`  ___/-. /\n" +
+                "         ___`. .'  /--.--\\  `. . __\n" +
+                "      .\"\" '<  `.___\\_<|>_/___.'  >'\"\".\n" +
+                "     | | :  `- \\`.;`\\ _ /`;.`/ - ` : | |\n" +
+                "     \\  \\ `-.   \\_ __\\ /__ _/   .-` /  /\n" +
+                "======`-.____`-.___\\_____/___.-`____.-'======\n" +
+                "                   `=---='\n" +
+                "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n" +
+                "         佛祖保佑       永无BUG\n" +
+                "\n" +
+                "---------------------------------------------\n");
+        StringWriter stringWriter = new StringWriter();
+        char[] chars = new char[1024];
+        int b;
+        while ((b = stringReader.read(chars)) != -1) {
+            stringWriter.write(chars, 0, b);
+        }
+//        System.out.println(stringWriter.toString());
+//        toString产生一个字符串，getBuffer获得一个StringBuffer对象
+        System.out.println(stringWriter.getBuffer().toString());
+        stringWriter.flush();
+        stringReader.close();
+        stringWriter.close();
+    }
+
+    /*
+    * ByteArrayReader没有？
+    * */
 
     @Test
     public void fileReaderTest() throws IOException {
