@@ -4,6 +4,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Test {
+    private static Pattern userNamePattern = Pattern
+            .compile("^([a-zA-Z][a-z0-9A-Z]+)$");
     public static void main(String[] args) {
         String reg="(?:(\\(\\+?86\\))(0[0-9]{2,3}\\-?)?([2-9][0-9]{6,7})+(\\-[0-9]{1,4})?)|" +
                 "(?:(86-?)?(0[0-9]{2,3}\\-?)?([2-9][0-9]{6,7})+(\\-[0-9]{1,4})?)";
@@ -20,4 +22,15 @@ public class Test {
         Boolean b2 = matcher.matches();
         System.out.println(b2);
     }
+
+    @org.junit.Test
+    public void test() {
+        String usrCde = "usr2no54353fd765765js5435kf56435j5f7l55654ds6757jfl8768kds";
+        if (userNamePattern.matcher(usrCde).matches()) {
+            System.out.println("匹配通过！");
+        } else {
+            System.out.println("匹配不通过！");
+        }
+    }
+
 }

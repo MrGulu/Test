@@ -1,4 +1,4 @@
-package Secret;
+package crypto;
 
 import sun.misc.BASE64Encoder;
 
