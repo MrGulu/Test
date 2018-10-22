@@ -2,7 +2,11 @@ package other;
 
 import java.io.*;
 
-
+/**
+* @Description:    将导出的sql文件去除records committed...和commit;行
+* @Author:         tangwenlong
+* @CreateDate:     2018/10/22 15:58
+*/
 public class DeleteStrDemo {
 
     private static int count;
@@ -15,12 +19,14 @@ public class DeleteStrDemo {
     }
 
     private static void deleteStrPro(File dir) throws IOException {
-        if (dir.isDirectory()) {//判断是否是文件夹
+        if (dir.isDirectory()) {
+            //判断是否是文件夹
             File[] files = dir.listFiles();
             if (null != files) {
                 for (File file : files) {
                     if (!file.isDirectory()) {
-                        removeStrCore(file);//核心处理方法
+                        //核心处理方法
+                        removeStrCore(file);
                     }
                 }
             }
@@ -33,17 +39,24 @@ public class DeleteStrDemo {
      * @param file
      */
     private static void removeStrCore(File file) {
-        BufferedReader bufferReader = null;//读缓冲器
-        BufferedWriter bufferWriter = null;//写缓冲器
+        //读缓冲器
+        BufferedReader bufferReader = null;
+        //写缓冲器
+        BufferedWriter bufferWriter = null;
         try {
             //注意，这个地方test2的目录是必须要有的，文件里可以是空的，它会自动创建！
             //由于没有append=true，所以就算有文件也会将内容覆盖
-            OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream("D:\\test2" + File.separator + file.getName()), "UTF-8");//指定写编码
-            InputStreamReader in = new InputStreamReader(new FileInputStream(file), "GBK");//指定读编码
-            bufferReader = new BufferedReader(in);//读缓冲器
-            bufferWriter = new BufferedWriter(out);//写缓冲器
+            //指定写编码
+            OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream("D:\\test2" + File.separator + file.getName()), "UTF-8");
+            //指定读编码
+            InputStreamReader in = new InputStreamReader(new FileInputStream(file), "GBK");
+            //读缓冲器
+            bufferReader = new BufferedReader(in);
+            //写缓冲器
+            bufferWriter = new BufferedWriter(out);
             while (bufferReader.ready()) {
                 String line = bufferReader.readLine();
+                //如果包含要去除的消息，继续读下一行，不写入？
                 if (line.contains("records committed...") || line.equals("commit;")) {
                     count++;
                     continue;
