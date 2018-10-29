@@ -82,6 +82,22 @@ public class FileStream {
         bufferedOutputStream.close();
     }
 
+    /*
+    * 如何处理过时的StringBufferInputStream-->用下面的ByteArrayInputStream代替
+    * */
+    /*
+    * 还需要注意一个问题，为什么要用UTF-8，本人的源程序是GBK格式的，但是用str.getBytes("GBK")就是不行，
+    * 字符串显示不出来。经过反复试验，基本认定是因为源程序要编译后才运行，编译后，里面的字符串存储的格式全部是unicode了。
+    * 所以需要用UTF-8
+    * */
+    @Test
+    public void execute() throws Exception {
+        StringBufferInputStream inputStream = new StringBufferInputStream("Hello World! This is a text string response from a Struts 2 Action.");
+        String str = new String("中文stream");
+        ByteArrayInputStream inputStreamNEW = new ByteArrayInputStream(str.getBytes("UTF-8"));
+        System.out.println(inputStreamNEW.toString());
+    }
+
     @Test
     public void byteArrayInputStreamTest() throws IOException {
         byte[] bytes = new byte[]{1,2,3,4,5};
@@ -110,22 +126,6 @@ public class FileStream {
         System.out.println(byteArrayOutputStream1.toString());
         byteArrayInputStream.close();
         byteArrayOutputStream.close();
-    }
-
-    /*
-    * 如何处理过时的StringBufferInputStream-->用ByteArrayInputStream代替
-    * */
-    /*
-    * 还需要注意一个问题，为什么要用UTF-8，本人的源程序是GBK格式的，但是用str.getBytes("GBK")就是不行，
-    * 字符串显示不出来。经过反复试验，基本认定是因为源程序要编译后才运行，编译后，里面的字符串存储的格式全部是unicode了。
-    * 所以需要用UTF-8
-    * */
-    @Test
-    public void execute() throws Exception {
-        StringBufferInputStream inputStream = new StringBufferInputStream("Hello World! This is a text string response from a Struts 2 Action.");
-        String str = new String("中文stream");
-        ByteArrayInputStream inputStreamNEW = new ByteArrayInputStream(str.getBytes("UTF-8"));
-        System.out.println(inputStreamNEW.toString());
     }
 
     @Test
@@ -228,7 +228,8 @@ public class FileStream {
     * 当你有一组应用程序接口（API）只允许用Writer或Reader作为输入，但你又想使用String，
     * 这时可以用StringWriter或StringReader。
     * Writer类输出数据到一个文件；不过有时候数据必须保留在内存中，比如想在数据被输出以前在图形用户界面（GUI）上
-    * 先显示一下，这时可以用StringWriter。StringWriter不是把数据写到某种形式的输出设备上，相反，它写到内存中。
+    * 先显示一下，这时可以用StringWriter；
+    * StringWriter不是把数据写到某种形式的输出设备上，相反，它写到内存中。
     * */
     @Test
     public void stringReaderTest() throws IOException {
