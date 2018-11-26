@@ -87,11 +87,6 @@
 
     <dependencies>
 
-
-
-
-
-
         <!--dependency>
         <groupId>cn.tang</groupId>
         <artifactId>[the artifact id of the block to be mounted]</artifactId>
@@ -109,7 +104,7 @@
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>4.12</version>
-        <scope>test</scope>
+        <!--<scope>test</scope>-->
         </dependency>
 
         <!-- 实现slf4j接口并整合 -->
@@ -218,48 +213,6 @@
         <version>1.2</version>
         </dependency>
 
-        <!-- Spring -->
-        <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-core</artifactId>
-        <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-beans</artifactId>
-        <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-context</artifactId>
-        <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-jdbc</artifactId>
-        <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-tx</artifactId>
-        <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-web</artifactId>
-        <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-webmvc</artifactId>
-        <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-test</artifactId>
-        <version>${spring.version}</version>
-        </dependency>
-
         <!--dom4j-->
         <!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
         <dependency>
@@ -268,11 +221,23 @@
         <version>1.6.1</version>
         </dependency>
 
+        <!-- mq -->
         <dependency>
-        <groupId>org.apache.activemq</groupId>
-        <artifactId>activemq-all</artifactId>
-        <version>5.14.5</version>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-all</artifactId>
+            <version>5.10.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.xbean</groupId>
+            <artifactId>xbean-spring</artifactId>
+            <version>4.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>4.1.4.RELEASE</version>
+        </dependency>
+        <!-- mq -->
 
         <dependency>
         <groupId>com.alibaba</groupId>
@@ -283,26 +248,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
 
         <!-- apollo -->
         <dependency>
@@ -375,16 +320,17 @@
 
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
+            <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
+            <!--<scope>test</scope>-->
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
+            <artifactId>spring-jdbc</artifactId>
             <version>${spring.version}</version>
-            <scope>test</scope>
         </dependency>
+
         <!-- spring -->
         <dependency>
             <groupId>com.alibaba</groupId>

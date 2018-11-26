@@ -52,6 +52,7 @@ public class AboutAlgorithm {
         System.out.println("原始：" + str);
         System.out.println("MD5后：" + md5Encode(str));
     }
+
     /***
      * MD5加密 生成32位md5码
      * @param inStr 待加密字符串
@@ -86,6 +87,7 @@ public class AboutAlgorithm {
         System.out.println("原始：" + str);
         System.out.println("SHA后：" + shaEncode(str));
     }
+
     /***
      * SHA加密 生成40位SHA码
      * @param inStr 待加密字符串
