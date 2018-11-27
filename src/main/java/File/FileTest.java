@@ -34,9 +34,9 @@ public class FileTest {
         System.out.println(file.exists());
 
         fileTest.fileNameList("D:\\");
-//        fileTest.listFiles("D:\\workspace\\Test\\");
-//        fileTest.listFiles("D:"+File.separator+"workspace"+File.separator+"Test");
-        fileTest.listFiles("D"+File.pathSeparator+File.separator+"workspace"+File.separator+"Test");
+//        fileTest.listFiles("D:\\workspace\\BigDecimalAboutRound\\");
+//        fileTest.listFiles("D:"+File.separator+"workspace"+File.separator+"BigDecimalAboutRound");
+        fileTest.listFiles("D"+File.pathSeparator+File.separator+"workspace"+File.separator+"BigDecimalAboutRound");
     }
 
     public String DateConverter(long time) {
