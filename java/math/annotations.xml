@@ -1,0 +1,5 @@
+<root>
+    <item name='java.math.BigDecimal java.math.BigDecimal divide(java.math.BigDecimal)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>
