@@ -1,9 +1,7 @@
 package BigDecimal;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-
-import java.text.DecimalFormat;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,5 +73,13 @@ public class Test {
         BigDecimal bigDecimal = new BigDecimal(6.428571428571429);
         System.out.println(bigDecimal.setScale(3,BigDecimal.ROUND_HALF_UP));
         System.out.println(bigDecimal.setScale(3,BigDecimal.ROUND_HALF_DOWN));
+    }
+
+    @org.junit.Test
+    public void test2() {
+        BigDecimal max = new BigDecimal(20000).multiply(new BigDecimal(0.95));
+        System.out.println(max);
+        BigDecimal max2 = new BigDecimal(20000).multiply(new BigDecimal(95)).divide(new BigDecimal(100));
+        System.out.println(max2);
     }
 }
