@@ -1,5 +1,9 @@
 package Date;
 
+import org.junit.Test;
+import utils.DateUtils;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -30,6 +34,20 @@ public class FormatDateTime {
             Date d = sdf.parse(String sourse);
          * */
 
+    }
+
+    @Test
+    public void test1() throws ParseException {
+        Date now = DateUtils.getLongDate19();
+        Date getDate = DateUtils.getString2LongDate("2015-04-15 14:57:18");
+        int sum = DateUtils.cutTwoDateToDay(getDate, now);
+        System.out.println("now:      "+now+"\ngetDate:  "+getDate);
+        System.out.println(sum);
+        if (sum <= 180) {
+            System.out.println("该客户六个月内提交过预审批！");
+        } else {
+            System.out.println("该客户六个月内未提交过预审批，可以进行预审批业务！");
+        }
     }
 }
 

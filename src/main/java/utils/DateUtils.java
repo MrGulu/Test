@@ -28,7 +28,7 @@ public class DateUtils
   public static final String DATE_SHORT_YEARMONTH = "yyyy-MM";
   public static final String DATENUMBERFORMAT8 = "yyyyMMdd";
   public static final String DATEHOURNUMBERFORMAT = "yyyyMMddHH";
-  public static final String DATE_FORMAT_HOUR = "H";    
+  public static final String DATE_FORMAT_HOUR = "H";
   private static Logger logger = LoggerFactory.getLogger(DateUtils.class);
 
   public static Date getCurrentDate()
@@ -168,7 +168,7 @@ public class DateUtils
   {
     return getCurrentFormatDate("yyyyMMdd HH:mm:ss");
   }
-  
+
   public static String getCurrentFormatDateLong19()
   {
     return getCurrentFormatDate("yyyy-MM-dd HH:mm:ss");
@@ -178,7 +178,7 @@ public class DateUtils
   {
     return getNDaysAgoOrAfterDate("yyyy-MM-dd HH:mm:ss",days,agoOrAfter);
   }
-  
+
   public static String getCurrentFormatDateLong23()
   {
     return getCurrentFormatDate("yyyy-MM-dd HH:mm:ss.SSS");
@@ -209,7 +209,7 @@ public class DateUtils
   {
     return getDate2String("yyyy-MM-dd HH:mm:ss", date);
   }
-  
+
   public static String getDate2ShortString10(Date date)
   {
     return getDate2String("yyyy-MM-dd", date);
@@ -219,12 +219,12 @@ public class DateUtils
   {
     return getDate2String("yyyyMMdd HH:mm:ss", date);
   }
-  
+
   public static String getDate2LongString19(Date date)
   {
     return getDate2String("yyyy-MM-dd HH:mm:ss", date);
   }
-  
+
   public static String getDate2LongString23(Date date)
   {
     return getDate2String("yyyy-MM-dd HH:mm:ss.SSS", date);
@@ -235,7 +235,7 @@ public class DateUtils
     return getDate2String("yyyy-MM-dd HH:mm", date);
   }
 
-  
+
 
   public static String getDate2HourString(Date date)
   {
@@ -265,6 +265,11 @@ public class DateUtils
     return getDate2ShortString10(dateInstance);
   }
 
+  public static Date getLongDate19() throws ParseException {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    return sdf.parse(sdf.format(new Date()));
+  }
+
   private static Date getString2Date(String format, String str)
   {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
@@ -277,8 +282,8 @@ public class DateUtils
   {
     return getString2Date("yyyy-MM-dd HH:mm:ss", str);
   }
-  
-  
+
+
   public static Date getString2ShortDate10(String str)
   {
     return getString2Date("yyyy-MM-dd", str);
@@ -288,12 +293,12 @@ public class DateUtils
   {
     return getString2Date("yyyyMMdd HH:mm:ss", str);
   }
-  
+
   public static Date getString2LongDate19(String str)
   {
     return getString2Date("yyyy-MM-dd HH:mm:ss", str);
   }
-  
+
   public static Date getString2LongDate23(String str)
   {
     return getString2Date("yyyy-MM-dd HH:mm:ss.SSS", str);
