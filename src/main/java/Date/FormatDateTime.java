@@ -1,12 +1,12 @@
 package Date;
 
-import com.sun.org.apache.xml.internal.dtm.ref.sax2dtm.SAX2DTM2;
 import org.junit.Test;
 import utils.DateUtils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class FormatDateTime {
@@ -104,6 +104,57 @@ public class FormatDateTime {
             System.out.println("在时间区间内！");
         }else {
             System.out.println("不在时间区间内！");
+        }
+    }
+
+    @Test
+    public void test3() throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        Date now = dateFormat.parse(dateFormat.format(new Date()));
+        Date date1 = dateFormat.parse("19:55:00");
+        Date date2 = dateFormat.parse("08:00:00");
+        if (now.getTime() > date1.getTime() || now.getTime() < date2.getTime()) {
+            System.out.println("在时间区间内！");
+        } else {
+            System.out.println("不在时间区间内！");
+        }
+    }
+
+    /**
+     * 使用Calendar方法的after或者before方法判比较时间；
+     * 这里比较的几点几分，不牵扯到年月日；所以赋予Date的时候，
+     * 年月日是默认的1970-01-01
+     *
+     * @throws ParseException
+     */
+    @Test
+    public void test4() throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        Date now = dateFormat.parse(dateFormat.format(new Date()));
+        Date date1 = dateFormat.parse("19:55:00");
+        Date date2 = dateFormat.parse("08:00:00");
+        boolean flag = belongCalendar(now, date1, date2);
+        if (flag) {
+            System.out.println("在时间区间内！");
+        } else {
+            System.out.println("不在时间区间内！");
+        }
+    }
+
+    public static boolean belongCalendar(Date nowTime, Date beginTime, Date endTime) {
+        Calendar date = Calendar.getInstance();
+        date.setTime(nowTime);
+
+        Calendar begin = Calendar.getInstance();
+        begin.setTime(beginTime);
+
+        Calendar end = Calendar.getInstance();
+        end.setTime(endTime);
+
+        if (date.after(begin) || date.before(end)) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
