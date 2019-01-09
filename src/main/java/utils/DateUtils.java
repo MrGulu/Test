@@ -67,6 +67,26 @@ public class DateUtils
     return theday;
   }
 
+  public static int cutTwoDateToMonth(Date a, Date b) {
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    Calendar c1 = Calendar.getInstance();
+    Calendar c2 = Calendar.getInstance();
+    int sumMonth = 0;
+    try {
+      Date beginDate = format.parse(format.format(a));
+      Date endDate = format.parse(format.format(b));
+
+      c1.setTime(beginDate);
+      c2.setTime(endDate);
+
+      sumMonth = (c2.get(Calendar.YEAR)-c1.get(Calendar.YEAR))*12 + (c2.get(Calendar.MONTH) - c1.get(Calendar.MONTH));
+//      sumMonth = (sumMonth == 0 ? 1 : Math.abs(sumMonth));
+    } catch (ParseException e) {
+      logger.debug("日期转换出错!", e);
+    }
+    return sumMonth;
+  }
+
   public static String intToTimeString(int time)
   {
     String hour = String.valueOf(time / 60);
