@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class KeysetAndEntryset {
     public static void main(String[] args) {
-        Map<String,String> map = new HashMap<>();
+        Map<String,String> map = new HashMap<>(8);
         map.put("1", "A");
         map.put("2", "B");
         map.put("3", "C");

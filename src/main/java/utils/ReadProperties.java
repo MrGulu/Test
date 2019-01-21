@@ -1,7 +1,3 @@
-/**
- * 软件著作权：长安新生（深圳）金融投资有限公司
- * 系统名称：马达贷
- */
 package utils;
 
 import org.slf4j.Logger;
@@ -9,10 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.Properties;
-
-/**
- * Created by wangqi on 2016/4/24.
- */
 
 public class ReadProperties {
     @SuppressWarnings("unused")
@@ -24,7 +16,8 @@ public class ReadProperties {
      * @return
      */
     public static String ReadPropertiesFromfiles(String propertiesFilename,String property,String vm){
-        Properties props=System.getProperties(); //系统属性
+        //系统属性
+        Properties props=System.getProperties();
         String confHome = props.getProperty(vm);
         logger.info(vm+ ":" + confHome);
         Properties prop = new Properties();

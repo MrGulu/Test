@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
+@SuppressWarnings("all")
 public class Student {
     private Integer id;
     public Integer age;
@@ -97,7 +97,10 @@ public class Student {
             Method method = Student.class.getMethod("sayGood");
             method.invoke(student3);
             //测试方法公有  有参数
-            Method method1 = Student.class.getMethod("sayWord", String.class);//有参数的方法，当输入第一个方法名时，第二个参数自动生成
+            /**
+             * 有参数的方法，当输入第一个方法名时，第二个参数自动生成
+             */
+            Method method1 = Student.class.getMethod("sayWord", String.class);
             method1.invoke(student3, "hello!");
             //测试方法私有  无参数
             Method method2 = Student.class.getDeclaredMethod("privateTest");
@@ -125,13 +128,7 @@ public class Student {
             } catch (NoSuchFieldException e) {
                 e.printStackTrace();
             }
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             e.printStackTrace();
         }
     }
