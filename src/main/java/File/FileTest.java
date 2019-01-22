@@ -2,10 +2,8 @@ package File;
 
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.nio.channels.FileLockInterruptionException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -33,10 +31,15 @@ public class FileTest {
 //        file.delete();
         System.out.println(file.exists());
 
-        fileTest.fileNameList("D:\\");
+        fileTest.fileNameList("E:\\");
 //        fileTest.listFiles("D:\\workspace\\BigDecimalAboutRound\\");
 //        fileTest.listFiles("D:"+File.separator+"workspace"+File.separator+"BigDecimalAboutRound");
-        fileTest.listFiles("D"+File.pathSeparator+File.separator+"workspace"+File.separator+"BigDecimalAboutRound");
+        /**
+         * 与系统有关的路径分隔符。此字段被初始为包含系统属性 path.separator 值的第一个字符。
+         * 此字符用于分隔以路径列表 形式给定的文件序列中的文件名。在 UNIX 系统上，此字段为 ':'；
+         * 在 Microsoft Windows 系统上，它为 ';'。
+         */
+        fileTest.listFiles("E:"+File.separator+"workspace"+File.separator+"conf_home"+File.separator+"mdd-conf");
     }
 
     public String DateConverter(long time) {
@@ -69,15 +72,79 @@ public class FileTest {
         }
     }
 
+    /**
+     * 通过下面的test1就可以知道为什么前面的文件都直接写文件名就可以取到File对象
+     */
     @Test
     public void test1() {
 //        我们可以通过读取user.dir系统属性来获取JVM的当前工作目录,然后通过代码建立新文件时，都会在这个工作目录下
         String workingDir = System.getProperty("user.dir");
         System.out.println(workingDir);
     }
+
+    /**
+     * 在使用相对路径创建File对象时，即使这个文件不存在也不会报错
+     * @throws IOException
+     */
     @Test
-    public void test2() throws FileNotFoundException {
-        File file = new File("bbb.txt");
-        file.renameTo(new File("FileReaderTestOut.txt"));
+    public void test2() throws IOException {
+        File file = new File("test2.txt");
+        System.out.println(file.exists());
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        System.out.println(file.isFile());
+        file.renameTo(new File("test2Rename.txt"));
+    }
+
+    /**
+     * 在使用绝对路径创建File对象时，即使这个文件不存在也不会报错
+     * @throws IOException
+     */
+    @Test
+    public void test3() throws IOException {
+        File file = new File("E:"+File.separator+"test3.txt");
+        System.out.println(file.exists());
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        System.out.println(file.isFile());
+        file.renameTo(new File("test2Rename.txt"));
+    }
+
+    /**
+     * 1.当路径存在时，即使文件不存在也不会报错；
+     * 2.当路径不存在时，如果文件上面只有一级目录不存在，使用File.mkdir()方法
+     * 3.当路径不存在时，如果文件上面有多级目录不存在，使用File.mkdirs()方法
+     * @throws IOException
+     */
+    @Test
+    public void test4() throws IOException {
+        File file = new File("E:"+File.separator+"testDirectory2"+File.separator+"testDirectory2"+File.separator+"test3.txt");
+        System.out.println(file.exists());
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        }
+        System.out.println(file.isFile());
+        file.renameTo(new File("test2Rename.txt"));
+    }
+
+    /**
+     * 1.当路径存在，文件不存在时，File file = new File(String path)不会报错；
+     * 2.当路径不存在时，File file = new File(String path)会报错：文件路径不存在（IOException）
+     * 2.当路径不存在时，如果文件上面只有一级目录不存在，使用File.mkdir()方法
+     * 3.当路径不存在时，如果文件上面有多级目录不存在，使用File.mkdirs()方法
+     * 4.当构建输入输出流对象时，需要声明FileNotFoundException，这时如果之前在
+     *   File file = new File(String path)时，并未判断是否存在，然后创建目录
+     *   或文件时，InputStream in = new FileInputStream(File file)就会报错
+
+     * @throws IOException
+     */
+    @Test
+    public void test5() throws FileNotFoundException {
+        File file = new File("E:"+File.separator+"testDirectory2"+File.separator+"testDirectory2"+File.separator+"test3.txt");
+        System.out.println(file.exists());
+        InputStream in = new FileInputStream(file);
     }
 }
