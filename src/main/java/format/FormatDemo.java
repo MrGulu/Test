@@ -1,4 +1,4 @@
-package BigDecimal;
+package format;
 
 
 import java.text.DecimalFormat;
@@ -13,6 +13,7 @@ public class FormatDemo {
     public static void main(String[] args) {
         FormatDemo demo=new FormatDemo();
         demo.format("###,###.###", 111222.34567);
+        demo.format("###,###.###", 11222.34567);
         demo.format("000,000.000", 11222.34567);
         demo.format("###,###.###$", 111222.34567);
         demo.format("000,000.000￥", 11222.34567);

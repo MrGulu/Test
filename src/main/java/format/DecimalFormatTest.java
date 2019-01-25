@@ -1,4 +1,4 @@
-package BigDecimal;
+package format;
 
 import org.junit.Test;
 
