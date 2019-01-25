@@ -10,17 +10,18 @@ import java.util.Vector;
 public class FileStream {
     @Test
     public void creatFile() throws IOException {
-        File file = new File("bufferedReaderTestIn.txt");
-        File file1 = new File("bufferedReaderTestOut.txt");
+        File file = new File("E:"+File.separator+"testFileInputStream.txt");
+        File file1 = new File("E:"+File.separator+"testFileOutputStream.txt");
+        //如果文件已经存在，返回的是false
         System.out.println(file.createNewFile());
         System.out.println(file1.createNewFile());
     }
 
     @Test
     public void fileInputStreamTest() throws IOException {
-        FileInputStream fileInputStream = new FileInputStream("aa.txt");
+        FileInputStream fileInputStream = new FileInputStream("E:"+File.separator+"testFileInputStream.txt");
         //append表示是否在文件为追加
-        FileOutputStream fileOutputStream = new FileOutputStream("bb.txt", true);
+        FileOutputStream fileOutputStream = new FileOutputStream("E:"+File.separator+"testFileOutputStream.txt", true);
         int test = fileInputStream.read();
         //读出来的是ASCII码对应字符的十进制表示
         System.out.println(test);
@@ -46,7 +47,7 @@ public class FileStream {
         fileOutputStream.write((char) 65);
         fileOutputStream.write((char) 32);
         int a;
-        //为什么第一个6写不进去？因为上面已经读了一次了，再读的时候是接着上次的继续读！
+        //为什么第一个写不进去？因为上面已经读了一次了，再读的时候是接着上次的继续读！
         while ((a = fileInputStream.read()) != -1) {
             fileOutputStream.write(a);
         }
@@ -54,13 +55,13 @@ public class FileStream {
         fileOutputStream.close();
     }
 
-    /*创建一个 BufferedInputStream 并保存其参数，即输入流 in，以便将来使用。
-    创建一个内部缓冲区数组并将其存储在 buf 中,该buf的大小默认为8192。
-    public BufferedInputStream(InputStream in);
-
-    创建具有指定缓冲区大小的 BufferedInputStream 并保存其参数，即输入流 in，以便将来使用。
-    创建一个长度为 size 的内部缓冲区数组并将其存储在 buf 中。
-    public BufferedInputStream(InputStream in,int size);*/
+//    创建一个 BufferedInputStream 并保存其参数，即输入流 in，以便将来使用。
+//    创建一个内部缓冲区数组并将其存储在 buf 中,该buf的大小默认为8192。
+//    public BufferedInputStream(InputStream in);
+//
+//    创建具有指定缓冲区大小的 BufferedInputStream 并保存其参数，即输入流 in，以便将来使用。
+//    创建一个长度为 size 的内部缓冲区数组并将其存储在 buf 中。
+//    public BufferedInputStream(InputStream in,int size);
     @Test
     public void bufferedInputStreamTest() throws IOException {
         BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream("aa.txt"));
@@ -126,6 +127,8 @@ public class FileStream {
         System.out.println(byteArrayOutputStream1.toString());
         byteArrayInputStream.close();
         byteArrayOutputStream.close();
+        byteArrayInputStream1.close();
+        byteArrayOutputStream1.close();
     }
 
     @Test

@@ -114,8 +114,8 @@ public class FileTest {
 
     /**
      * 1.当路径存在时，即使文件不存在也不会报错；
-     * 2.当路径不存在时，如果文件上面只有一级目录不存在，使用File.mkdir()方法
-     * 3.当路径不存在时，如果文件上面有多级目录不存在，使用File.mkdirs()方法
+     * 2.当路径不存在时，如果文件上面只有一级目录不存在，使用File.mkdir()方法创建父目录
+     * 3.当路径不存在时，如果文件上面有多级目录不存在，使用File.mkdirs()方法创建多级父目录
      * @throws IOException
      */
     @Test
@@ -138,6 +138,7 @@ public class FileTest {
      * 4.当构建输入输出流对象时，需要声明FileNotFoundException，这时如果之前在
      *   File file = new File(String path)时，并未判断是否存在，然后创建目录
      *   或文件时，InputStream in = new FileInputStream(File file)就会报错
+     *   ：FileNotFoundException
 
      * @throws IOException
      */

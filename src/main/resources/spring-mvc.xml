@@ -14,7 +14,7 @@
     <context:component-scan base-package="ActiveMQ.withSpring"/>
 
 
-     开启SpringMVC注解模式 （处理器映射器和处理器适配器的综合体）
+     <!--开启SpringMVC注解模式 （处理器映射器和处理器适配器的综合体）-->
     <mvc:annotation-driven/>
 
 
