@@ -24,7 +24,7 @@ public class SetTest {
         Set<String> set1 = new HashSet(list);
         System.out.println(set1);
         if (set1.contains("21")) {
-            System.out.println("hava");
+            System.out.println("have");
         }
         /**
          * String转成数组后，再转成List，然后使用Set的addAll方法
@@ -33,7 +33,7 @@ public class SetTest {
         Set set2 = new HashSet();
         set2.addAll(list);
         if (set2.contains("21")) {
-            System.out.println("hava");
+            System.out.println("have");
         }
         /**
          *String转成数组后，再转成List，然后使用Collections.addAll方法（传入List参数）
@@ -42,7 +42,7 @@ public class SetTest {
         Set set3 = new HashSet();
         Collections.addAll(set3, list);
         if (set3.contains("21")) {
-            System.out.println("hava");
+            System.out.println("have");
         }
         /**
          *String转成数组后，然后使用Collections.addAll方法（传入Array参数）
@@ -51,7 +51,7 @@ public class SetTest {
         Set set4 = new HashSet();
         Collections.addAll(set4, array);
         if (set4.contains("21")) {
-            System.out.println("hava");
+            System.out.println("have");
         }
     }
 }
