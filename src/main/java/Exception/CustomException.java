@@ -23,6 +23,11 @@ public class CustomException extends RuntimeException {
         super(message);
     }
 
+    public CustomException(ICustomError customError, String... details) {
+        super(customError.getMessage(details));
+        this.errorCode = customError.getCode();
+    }
+
     public CustomException(String errorCode, String message) {
         super(message);
         this.errorCode = errorCode;
@@ -34,11 +39,6 @@ public class CustomException extends RuntimeException {
 
     public CustomException(ICustomError customError) {
         super(customError.getMessage());
-        this.errorCode = customError.getCode();
-    }
-
-    public CustomException(ICustomError customError, String... details) {
-        super(customError.getMessage(details));
         this.errorCode = customError.getCode();
     }
 
