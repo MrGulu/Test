@@ -2,12 +2,12 @@ package Exception;
 
 public class Test {
     class InnerTest {
-        public String returnString(int i) throws MyException{
+        public String returnString(int i) throws CustomException {
             String s = null;
             if (i == 1) {
                 s = "one";
             } else if (i == 2) {
-                throw new MyException("exception");
+                throw new CustomException(RspCustomEnum.ERR10001, "==>自定义异常哇！");
             }
             return s;
         }

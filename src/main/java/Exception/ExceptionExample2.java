@@ -12,8 +12,8 @@ public class ExceptionExample2 {
         try {
 //        String s = null;
 //        System.out.println(s.length());//此处发生异常，不会继续往下执行，异常冒泡抛到了main，被catch捕获
-            System.out.println("Oringinally create a MyException and throw it out!");
-            throw new MyException("MyException");
+            System.out.println("Oringinally create a CustomException and throw it out!");
+            throw new CustomException("CustomException");
         } catch (Exception e) {
             logger.info("捕获到异常！",e);
         }
