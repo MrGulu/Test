@@ -190,6 +190,19 @@ public class FormatDateTime {
         }
     }
 
+    /**
+     * 校验身份证是否过期，yyyy-MM-dd格式日期就要传入yyyy-MM-dd格式的字符串
+     *
+     * @throws ParseException
+     */
+    @Test
+    public void test5() throws ParseException {
+        String validDate = "2015-12-20";
+        if (!"长期".equals(validDate) && DateUtils.getDateByStr(validDate).getTime() < System.currentTimeMillis()) {
+            System.out.println("过期了！");
+        }
+    }
+
     public static boolean belongCalendar(Date nowTime, Date beginTime, Date endTime) {
         Calendar date = Calendar.getInstance();
         date.setTime(nowTime);
