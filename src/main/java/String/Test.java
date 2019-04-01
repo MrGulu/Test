@@ -1,6 +1,5 @@
 package String;
 
-import com.github.pagehelper.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.ReadProperties;
@@ -79,6 +78,15 @@ public class Test {
         String applSeq = "1212";
         int timesLimit = 10;
         System.out.println("预审批业务：" + applSeq + "获取泰美斯结果发送接口次数未达到限制次数(" + timesLimit + "次）！仍可继续查询！");
+    }
+
+    @org.junit.Test
+    public void test5() {
+        String date = "2026.01.29";
+        System.out.println(date.replaceAll("\\.", "-"));
+        String date2 = "20260129";
+        StringBuilder stringBuilder = new StringBuilder(date2);
+        System.out.println(stringBuilder.insert(4, "-").insert(7, "-"));
     }
 
 }
