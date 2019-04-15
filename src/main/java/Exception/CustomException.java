@@ -50,6 +50,14 @@ public class CustomException extends RuntimeException {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
     public Map<String, String> getErrorMessages() {
         return this.errorMessages;
     }

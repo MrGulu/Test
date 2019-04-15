@@ -89,4 +89,11 @@ public class Test {
         System.out.println(stringBuilder.insert(4, "-").insert(7, "-"));
     }
 
+    @org.junit.Test
+    public void test6() {
+        int i = 123;
+        int j = 22;
+        System.out.println(Integer.valueOf(i).equals(j));
+    }
+
 }
