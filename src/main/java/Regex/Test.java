@@ -43,9 +43,13 @@ public class Test {
     public void test2() {
         //注意\d前面还有一个\，是转义字符
         String mobileRegex = "^1[34578]\\d{9}$";
+        String mobileRegex11 = "^\\d\\d{10}$";
+        String mobileRegex15 = "^\\d\\d{10,14}$";
         String testMobileTrue = "18562310571";
         String testMobileFalse = "12562310571";
         String testMobile = "23562310571";
+        String testMobile15True = "053282343212";
+        String testMobile15False = "0532823432121234";
         Pattern mobilePattern = Pattern.compile(mobileRegex);
         Matcher mobileMatcher = mobilePattern.matcher(testMobileTrue);
         //1.第一种按部就班方式-麻烦
@@ -63,7 +67,7 @@ public class Test {
             System.out.println("未通过~");
         }
         //3.直接使用字符串的matches方法，调用的是上面的简单方式
-        boolean flag3 = testMobile.matches(mobileRegex);
+        boolean flag3 = testMobileTrue.matches(mobileRegex11);
         if (flag3) {
             System.out.println("通过~");
         } else {

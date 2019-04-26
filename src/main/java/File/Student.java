@@ -24,6 +24,9 @@ public class Student implements Serializable {
         this.age = age;
     }
 
+    public Student() {
+    }
+
     public Student(String name, int age) {
         super();
 

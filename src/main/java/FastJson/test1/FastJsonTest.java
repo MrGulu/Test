@@ -1,13 +1,11 @@
 package FastJson.test1;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-
 import org.junit.Test;
-import org.slf4j.LoggerFactory;
 
-import javax.json.Json;
 import java.util.*;
 
 public class FastJsonTest {
@@ -65,6 +63,12 @@ public class FastJsonTest {
         //String转化为List<Book>
         List<Book> bookList3 = JSON.parseArray(bookStr,Book.class);
         System.out.println(bookList3.toString());
+        //String转化为JSONArray
+        JSONArray jsonArray = JSON.parseArray(bookStr);
+        System.out.println(jsonArray);
+        //JSONArray实现了List接口，所以可以向上转型为List
+        List list = (List) jsonArray;
+        System.out.println(list.toString());
 
         System.out.println();
     }
@@ -111,9 +115,12 @@ public class FastJsonTest {
         map.put("price", "100");
         //map转换为json
         String json = JSON.toJSONString(map);
-        //json转换为map
-        Map map1 = JSON.parseObject(json);
+        System.out.println(json);
+        //json转换为map(返回值是JSONObject，但是可以用Map接收)
+        Map<String, Object> map1 = JSON.parseObject(json);
+        System.out.println(map1);
         Map<String,String> map2 = (Map<String,String>)JSON.parse(json);
+        System.out.println(map2);
 
     }
 
