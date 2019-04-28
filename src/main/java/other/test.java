@@ -1,5 +1,7 @@
 package other;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,5 +96,111 @@ public class test {
         System.out.println(list);
         System.out.println(map);
         System.out.println(ReadProperties.ReadPropertiesFromfiles("/businesspresentation.properties", "businesspresentation", "CONF_HOME"));
+    }
+
+    @Test
+    public void stringBuilderAndJSONObjectTest() {
+        String result = "{\n" +
+                "    \"code\": \"10412\",\n" +
+                "    \"message\": \"合同信息不一致\",\n" +
+                "    \"data\": [\n" +
+                "        {\n" +
+                "            \"data\": [\n" +
+                "                {\n" +
+                "                    \"key\": \"mrtgRgstPlc\",\n" +
+                "                    \"desc\": \"抵押登记地点\",\n" +
+                "                    \"old\": \"铁门关市\",\n" +
+                "                    \"new\": \"铁门关市tt\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"key\": \"vhclLndAmt\",\n" +
+                "                    \"desc\": \"vhclLndAmt\",\n" +
+                "                    \"old\": \"73000.00\",\n" +
+                "                    \"new\": \"73000.00tt\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"key\": \"lndAmtLower\",\n" +
+                "                    \"desc\": \"借款金额小写\",\n" +
+                "                    \"old\": \"75000.00\",\n" +
+                "                    \"new\": \"75000.00tt\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"key\": \"lndAmtUp\",\n" +
+                "                    \"desc\": \"借款金额大写\",\n" +
+                "                    \"old\": \"柒万伍仟元整\",\n" +
+                "                    \"new\": \"柒万伍仟元整tt\"\n" +
+                "                }\n" +
+                "            ],\n" +
+                "            \"applSeq\": 9255535,\n" +
+                "            \"ectrName\": \"借款及抵押合同\",\n" +
+                "            \"ectrDefCde\": \"00000011\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"data\": [\n" +
+                "                {\n" +
+                "                    \"key\": \"mrtgRgstPlc\",\n" +
+                "                    \"desc\": \"姓名\",\n" +
+                "                    \"old\": \"旧的\",\n" +
+                "                    \"new\": \"新的\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"key\": \"vhclLndAmt\",\n" +
+                "                    \"desc\": \"vhclLndAmt\",\n" +
+                "                    \"old\": \"73000.00\",\n" +
+                "                    \"new\": \"73000.00tt\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"key\": \"lndAmtLower\",\n" +
+                "                    \"desc\": \"借款金额小写\",\n" +
+                "                    \"old\": \"75000.00\",\n" +
+                "                    \"new\": \"75000.00tt\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"key\": \"lndAmtUp\",\n" +
+                "                    \"desc\": \"借款金额大写\",\n" +
+                "                    \"old\": \"柒万伍仟元整\",\n" +
+                "                    \"new\": \"柒万伍仟元整tt\"\n" +
+                "                }\n" +
+                "            ],\n" +
+                "            \"applSeq\": 9255535,\n" +
+                "            \"ectrName\": \"长安信托个人汽车消费借款及抵押合同-盛京联贷版\",\n" +
+                "            \"ectrDefCde\": \"00000011\"\n" +
+                "        }\n" +
+                "    ]\n" +
+                "}";
+        JSONObject jsonObject = JSONObject.parseObject(result);
+        StringBuilder diffDesc = new StringBuilder("(");
+        String sign = null;
+        String same = null;
+        if ("0".equals(jsonObject.getString("code"))) {
+            logger.info("面签提交时校验电子协议一致！");
+            sign = "Y";
+            same = "Y";
+        } else {
+            logger.info("面签提交时校验电子协议不一致！code：" + jsonObject.getString("code"));
+            same = "N";
+            if ("10105".equals(jsonObject.getString("code"))) {
+                sign = "N";
+            } else {
+                sign = "Y";
+            }
+            JSONArray jsonArray = jsonObject.getJSONArray("data");
+            for (int i = 0; i < jsonArray.size(); i++) {
+                String ectrName = jsonArray.getJSONObject(i).getString("ectrName");
+                //只取前后合同要素不同中的第一项不同进行提示
+                String descString = jsonArray.getJSONObject(i).getJSONArray("data").getJSONObject(0).getString("desc");
+                String oldString = jsonArray.getJSONObject(i).getJSONArray("data").getJSONObject(0).getString("old");
+                String newString = jsonArray.getJSONObject(i).getJSONArray("data").getJSONObject(0).getString("new");
+                diffDesc.append(i + 1 + "." + ectrName + "合同要素字段：").append(descString).append(",旧值为：" + oldString).append(";新值为：" + newString + "。");
+            }
+            diffDesc.append(")");
+        }
+        //判断从电子签约获取电子协议是否一致逻辑
+        if ("N".equals(sign)) {
+            logger.info("applSeq:" + "666" + ",电子协议未签署");
+        }
+        if ("N".equals(same)) {
+            logger.info("applSeq:" + "666" + ",电子协议内容与业务数据不一致" + diffDesc.toString());
+        }
     }
 }
