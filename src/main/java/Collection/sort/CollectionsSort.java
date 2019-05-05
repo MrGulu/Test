@@ -1,4 +1,4 @@
-package Collections.Sort;
+package Collection.sort;
 
 import java.util.*;
 

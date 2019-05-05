@@ -1,4 +1,4 @@
-package Date;
+package date;
 
 import org.junit.Test;
 import utils.DateUtils;
@@ -32,8 +32,8 @@ public class FormatDateTime {
         /**
          *
          *  SimpleDateFormat sdf = new SimpleDateFormat();
-         String d = sdf.format(Date date);
-         Date d = sdf.parse(String sourse);
+         String d = sdf.format(date date);
+         date d = sdf.parse(String sourse);
          * */
 
     }
@@ -64,7 +64,7 @@ public class FormatDateTime {
      */
     @Test
     public void test12() throws ParseException {
-//        Date now = DateUtils.getLongDate19();
+//        date now = DateUtils.getLongDate19();
         Date now = DateUtils.getString2LongDate("2019-03-24 14:57:18");
         Date getDate = DateUtils.getString2LongDate("2018-06-23 14:57:18");
         int sum = DateUtils.cutTwoDateToMonth(getDate, now);

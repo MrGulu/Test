@@ -1,8 +1,7 @@
-package Arrays;
+package Collection.array;
 
 import org.junit.Test;
 
-import javax.persistence.Id;
 import java.util.*;
 
 public class ArraysTest {

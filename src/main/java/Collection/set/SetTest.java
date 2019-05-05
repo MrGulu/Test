@@ -1,4 +1,4 @@
-package Set;
+package Collection.set;
 
 import org.junit.Test;
 import utils.ReadProperties;
