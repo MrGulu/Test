@@ -17,7 +17,6 @@ public class TestLombok {
         Emp2 emp2 = Emp2.staticConstructor("required");
         emp2.setName("emp2");
         emp2.setAge(22);
-        emp2.setSalary(9999.99);
         System.out.println(emp2.toString());
     }
     @Test

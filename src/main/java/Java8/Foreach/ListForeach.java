@@ -28,7 +28,7 @@ public class ListForeach {
 //lambda
 //Output : A,B,C,D,E
         items2.forEach(item->System.out.println(item));
-        //使用lambda表达式！
+        //使用方法引用！
         items2.forEach(System.out::println);
 
 //Output : C

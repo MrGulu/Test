@@ -6,7 +6,7 @@ import java.util.Map;
 public class MapForeach {
     public static void main(String[] args) {
 //        1.1 正常方式遍历Map
-        Map<String, Integer> items = new HashMap<>();
+        Map<String, Integer> items = new HashMap<>(8);
         items.put("A", 10);
         items.put("B", 20);
         items.put("C", 30);
@@ -19,7 +19,7 @@ public class MapForeach {
 
 
 //        1.2 使用Java8的foreach+lambda表达式遍历Map
-        Map<String, Integer> items2 = new HashMap<>();
+        Map<String, Integer> items2 = new HashMap<>(8);
         items2.put("A", 10);
         items2.put("B", 20);
         items2.put("C", 30);

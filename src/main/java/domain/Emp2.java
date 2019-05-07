@@ -1,7 +1,6 @@
 package domain;
 
 import lombok.*;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -10,7 +9,7 @@ import java.io.Serializable;
 @Getter
 @ToString
 @RequiredArgsConstructor(staticName = "staticConstructor")
-@Accessors(chain = true,prefix = "f")
+//@Accessors(chain = true,prefix = "f")
 /**
  * 1.在使用@Data(staticConstructor = "staticConstructor")时，生成的构造函数就是private，
  *  并且有一个static的方法为staticConstructor，通过这个静态方法调用私有的构造函数完成对象创建。
@@ -25,6 +24,6 @@ public class Emp2 implements Serializable {
     private String name;
     private Integer age;
     @NonNull private String required;
-//    prefix 若为true，则getter和setter方法会忽视属性名的指定前缀（遵守驼峰命名）
-    private Double fSalary;
+//    /**prefix 若为true，则getter和setter方法会忽视属性名的指定前缀（遵守驼峰命名）*/
+//    private Double fSalary;
 }
