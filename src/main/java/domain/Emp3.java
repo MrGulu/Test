@@ -1,5 +1,6 @@
 package domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -9,11 +10,31 @@ import java.util.Objects;
 @Getter
 @Setter
 @Accessors(chain = true)
+@AllArgsConstructor
 public class Emp3 {
 
     private String name;
     private Integer age;
     private Double salary;
+    private Status status;
+
+    @SuppressWarnings("all")
+    public enum Status {
+        NONE,
+        FREE,
+        BUSY,
+        VOCATION;
+    }
+
+    @Override
+    public String toString() {
+        return "Emp3{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", salary=" + salary +
+                ", status=" + status +
+                '}';
+    }
 
     /**
      * 通常，toString 方法会返回一个“以文本方式表示”此对象的字符串。结果应是一个简明但易于读懂。
@@ -21,14 +42,7 @@ public class Emp3 {
      * 该字符串由类名（对象是该类的一个实例）、at 标记符“@”和此对象哈希码的无符号十六进制表示组成。
      * 换句话说，该方法返回一个字符串，它的值等于：getClass().getName() + '@' + Integer.toHexString(hashCode())
      */
-    @Override
-    public String toString() {
-        return "Emp3{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", salary=" + salary +
-                '}';
-    }
+
 
     public Emp3(String name, Integer age, Double salary) {
         this.name = name;
