@@ -48,6 +48,18 @@ public class StreamTest6 {
         System.out.println("-------------------------");
     }
 
+    /**
+     * 这个测试的是总数、平均值、最大值、最小值等
+     * 但是这些方法参数都是函数型接口（……Function）
+     * 所以目的是从流中的元素实体类中获取某一项属性后对提取出的属性进行计算总数、平均值、最大值、最小值等
+     * <p>
+     * 而在StreamTest4中测试的总数、平均值、最大值、最小值等
+     * 这些方法参数都是Comparator比较器
+     * 所以目的是直接计算流中元素的总数、平均值、最大值、最小值等
+     * 或者map操作后，将某一属性取出，再进行计算。
+     * <p>
+     * ：注意两者的区别
+     */
     @Test
     public void test2() {
         //总数
@@ -125,7 +137,7 @@ public class StreamTest6 {
     }
 
     /**
-     * 分区
+     * 分区 true/false
      */
     @Test
     public void test5() {
