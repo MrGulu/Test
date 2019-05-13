@@ -34,14 +34,6 @@ public class LambdaTest {
         System.out.println(wordLengths);
     }
 
-    static {
-        Emp3[] emps = new Emp3[]{
-                new Emp3("张三", 18, 5555.55),
-                new Emp3("李四", 19, 6666.66),
-                new Emp3("王五", 20, 7777.77),
-                new Emp3("赵六", 21, 8888.88)
-        };
-    }
 
     @org.junit.Test
     public void test0() {

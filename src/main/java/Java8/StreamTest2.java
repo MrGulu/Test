@@ -29,7 +29,6 @@ public class StreamTest2 {
      * <R> Stream<R> map(Function<? super T, ? extends R> mapper);
      */
     @Test
-    @SuppressWarnings("all")
     public void test1() {
         System.out.println("--------------------------");
         emps.stream()

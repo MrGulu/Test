@@ -1,19 +1,20 @@
 package other;
 
+import base.domain.JsonResponse;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.JacksonUtil;
 import utils.ReadProperties;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Consumer;
 
 public class test {
     public static final Logger logger = LoggerFactory.getLogger(test.class);
@@ -202,5 +203,368 @@ public class test {
         if ("N".equals(same)) {
             logger.info("applSeq:" + "666" + ",电子协议内容与业务数据不一致" + diffDesc.toString());
         }
+    }
+
+    @Test
+    public void testStringBuilder() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("fdsfsdx新知就只。");
+        stringBuilder.replace(stringBuilder.length() - 1, stringBuilder.length(), ";");
+        System.out.println(stringBuilder);
+    }
+
+    @Test
+    @SuppressWarnings("all")
+    public void testContract() {
+        String s = "{\n" +
+                "    \"code\": \"10412\",\n" +
+                "    \"message\": \"合同信息不一致\",\n" +
+                "    \"data\": [\n" +
+                "        {\n" +
+                "            \"data\": [\n" +
+                "                {\n" +
+                "                    \"key\": \"mrtgRgstPlc\",\n" +
+                "                    \"desc\": \"抵押登记地点\",\n" +
+                "                    \"old\": \"铁门关市\",\n" +
+                "                    \"new\": \"铁门关市tt\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"key\": \"vhclLndAmt\",\n" +
+                "                    \"desc\": \"vhclLndAmt\",\n" +
+                "                    \"old\": \"73000.00\",\n" +
+                "                    \"new\": \"73000.00tt\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"key\": \"lndAmtLower\",\n" +
+                "                    \"desc\": \"借款金额小写\",\n" +
+                "                    \"old\": \"75000.00\",\n" +
+                "                    \"new\": \"75000.00tt\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"key\": \"lndAmtUp\",\n" +
+                "                    \"desc\": \"借款金额大写\",\n" +
+                "                    \"old\": \"柒万伍仟元整\",\n" +
+                "                    \"new\": \"柒万伍仟元整tt\"\n" +
+                "                }\n" +
+                "            ],\n" +
+                "            \"applSeq\": 9255535,\n" +
+                "            \"ectrName\": \"中航信托个人汽车消费合同\",\n" +
+                "            \"ectrDefCde\": \"00000011\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"data\": [\n" +
+                "                {\n" +
+                "                    \"key\": \"mrtgRgstPlc\",\n" +
+                "                    \"desc\": \"姓名\",\n" +
+                "                    \"old\": \"旧的\",\n" +
+                "                    \"new\": \"新的\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"key\": \"vhclLndAmt\",\n" +
+                "                    \"desc\": \"vhclLndAmt\",\n" +
+                "                    \"old\": \"73000.00\",\n" +
+                "                    \"new\": \"73000.00tttt\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"key\": \"lndAmtLower\",\n" +
+                "                    \"desc\": \"借款金额小写\",\n" +
+                "                    \"old\": \"75000.00\",\n" +
+                "                    \"new\": \"75000.00tttt\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"key\": \"lndAmtUp\",\n" +
+                "                    \"desc\": \"借款金额大写\",\n" +
+                "                    \"old\": \"柒万伍仟元整\",\n" +
+                "                    \"new\": \"柒万伍仟元整tttt\"\n" +
+                "                }\n" +
+                "            ],\n" +
+                "            \"applSeq\": 9255535,\n" +
+                "            \"ectrName\": \"长安信托个人汽车消费借款及抵押合同-盛京联贷版\",\n" +
+                "            \"ectrDefCde\": \"00000011\"\n" +
+                "        }\n" +
+                "    ]\n" +
+                "}";
+        StringBuilder diffDesc = new StringBuilder();
+        List<String> diffList = new ArrayList<>();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject = JSON.parseObject(s);
+        JSONArray data1 = jsonObject.getJSONArray("data");
+        //方式一 平均220ms
+        data1.forEach(x -> {
+            String s1 = JSON.toJSONString(x);
+            JSONObject jsonObject1 = JSON.parseObject(s1);
+            String ectrName = jsonObject1.getString("ectrName");
+            diffDesc.append(ectrName).append("合同要素字段：");
+            JSONArray data2 = jsonObject1.getJSONArray("data");
+            data2.forEach(y -> {
+                String s2 = JSON.toJSONString(y);
+                JSONObject jsonObject2 = JSON.parseObject(s2);
+                String descString = jsonObject2.getString("desc");
+                String oldString = jsonObject2.getString("old");
+                String newString = jsonObject2.getString("new");
+                diffDesc.append(descString).append(",旧值为：").append(oldString).append(",新值为：").append(newString).append("。");
+            });
+            diffDesc.replace(diffDesc.length() - 1, diffDesc.length(), ";");
+        });
+        //方式二 平均220ms-240ms
+        for (int i = 0; i < data1.size(); i++) {
+            String ectrName = data1.getJSONObject(i).getString("ectrName");
+            diffDesc.append(ectrName).append("合同要素字段：");
+            JSONArray data2 = data1.getJSONObject(i).getJSONArray("data");
+            data2.forEach(y -> {
+                String s1 = JSON.toJSONString(y);
+                JSONObject jsonObject1 = JSON.parseObject(s1);
+                String descString = jsonObject1.getString("desc");
+                String oldString = jsonObject1.getString("old");
+                String newString = jsonObject1.getString("new");
+                diffDesc.append(descString).append(",旧值为：").append(oldString).append(",新值为：").append(newString).append("。");
+            });
+            diffDesc.replace(diffDesc.length() - 1, diffDesc.length(), ";");
+        }
+        //方式三 平均190ms-200ms
+        Consumer<JSONArray> consumer = v -> {
+            for (int j = 0; j < v.size(); j++) {
+                String descString = v.getJSONObject(j).getString("desc");
+                String oldString = v.getJSONObject(j).getString("old");
+                String newString = v.getJSONObject(j).getString("new");
+                diffDesc.append(descString).append(",旧值为：").append(oldString).append(",新值为：").append(newString).append("。");
+            }
+            diffDesc.replace(diffDesc.length() - 1, diffDesc.length(), ";");
+        };
+        for (int i = 0; i < data1.size(); i++) {
+            String ectrName = data1.getJSONObject(i).getString("ectrName");
+            diffDesc.append(ectrName).append("合同要素字段：");
+            JSONArray data2 = data1.getJSONObject(i).getJSONArray("data");
+            consumer.accept(data2);
+        }
+        //方式四 平均203ms
+        for (int i = 0; i < data1.size(); i++) {
+            String ectrName = data1.getJSONObject(i).getString("ectrName");
+            diffDesc.append(ectrName).append("合同要素字段：");
+            JSONArray data2 = data1.getJSONObject(i).getJSONArray("data");
+            for (int j = 0; j < data2.size(); j++) {
+                String descString = data2.getJSONObject(j).getString("desc");
+                String oldString = data2.getJSONObject(j).getString("old");
+                String newString = data2.getJSONObject(j).getString("new");
+                diffDesc.append(descString).append(",旧值为：").append(oldString).append(",新值为：").append(newString).append("。");
+            }
+            diffDesc.replace(diffDesc.length() - 1, diffDesc.length(), ";");
+        }
+        //处理结果
+        Collections.addAll(diffList, diffDesc.toString().split(";"));
+        System.out.println(diffList);
+        System.out.println(JacksonUtil.ObjectToJson(diffList));
+    }
+
+    @Test
+    @SuppressWarnings("all")
+    public void testContract2() {
+        String s = "{\n" +
+                "    \"code\": \"10412\",\n" +
+                "    \"message\": \"合同信息不一致\",\n" +
+                "    \"data\": [\n" +
+                "        {\n" +
+                "            \"data\": [\n" +
+                "                {\n" +
+                "                    \"key\": \"mrtgRgstPlc\",\n" +
+                "                    \"desc\": \"抵押登记地点\",\n" +
+                "                    \"old\": \"铁门关市\",\n" +
+                "                    \"new\": \"铁门关市tt\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"key\": \"vhclLndAmt\",\n" +
+                "                    \"desc\": \"vhclLndAmt\",\n" +
+                "                    \"old\": \"73000.00\",\n" +
+                "                    \"new\": \"73000.00tt\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"key\": \"lndAmtLower\",\n" +
+                "                    \"desc\": \"借款金额小写\",\n" +
+                "                    \"old\": \"75000.00\",\n" +
+                "                    \"new\": \"75000.00tt\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"key\": \"lndAmtUp\",\n" +
+                "                    \"desc\": \"借款金额大写\",\n" +
+                "                    \"old\": \"柒万伍仟元整\",\n" +
+                "                    \"new\": \"柒万伍仟元整tt\"\n" +
+                "                }\n" +
+                "            ],\n" +
+                "            \"applSeq\": 9255535,\n" +
+                "            \"ectrName\": \"中航信托个人汽车消费合同\",\n" +
+                "            \"ectrDefCde\": \"00000011\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"data\": [\n" +
+                "                {\n" +
+                "                    \"key\": \"mrtgRgstPlc\",\n" +
+                "                    \"desc\": \"姓名\",\n" +
+                "                    \"old\": \"旧的\",\n" +
+                "                    \"new\": \"新的\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"key\": \"vhclLndAmt\",\n" +
+                "                    \"desc\": \"vhclLndAmt\",\n" +
+                "                    \"old\": \"73000.00\",\n" +
+                "                    \"new\": \"73000.00tttt\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"key\": \"lndAmtLower\",\n" +
+                "                    \"desc\": \"借款金额小写\",\n" +
+                "                    \"old\": \"75000.00\",\n" +
+                "                    \"new\": \"75000.00tttt\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"key\": \"lndAmtUp\",\n" +
+                "                    \"desc\": \"借款金额大写\",\n" +
+                "                    \"old\": \"柒万伍仟元整\",\n" +
+                "                    \"new\": \"柒万伍仟元整tttt\"\n" +
+                "                }\n" +
+                "            ],\n" +
+                "            \"applSeq\": 9255535,\n" +
+                "            \"ectrName\": \"长安信托个人汽车消费借款及抵押合同-盛京联贷版\",\n" +
+                "            \"ectrDefCde\": \"00000011\"\n" +
+                "        }\n" +
+                "    ]\n" +
+                "}";
+        StringBuilder diffDesc = new StringBuilder();
+        List<String> diffList = new ArrayList<>();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject = JSON.parseObject(s);
+        JSONArray data1 = jsonObject.getJSONArray("data");
+        //方式三 平均190ms-200ms
+        Consumer<JSONArray> consumer = v -> {
+            for (int j = 0; j < v.size(); j++) {
+                String descString = v.getJSONObject(j).getString("desc");
+                String oldString = v.getJSONObject(j).getString("old");
+                String newString = v.getJSONObject(j).getString("new");
+                diffDesc.append(descString).append(",旧值为：").append(oldString).append(",新值为：").append(newString).append("。");
+            }
+            diffDesc.replace(diffDesc.length() - 1, diffDesc.length(), ";");
+        };
+        for (int i = 0; i < data1.size(); i++) {
+            String ectrName = data1.getJSONObject(i).getString("ectrName");
+            diffDesc.append(ectrName).append("合同要素字段：");
+            JSONArray data2 = data1.getJSONObject(i).getJSONArray("data");
+            consumer.accept(data2);
+        }
+        //处理结果
+        Collections.addAll(diffList, diffDesc.toString().split(";"));
+        JSONArray jsonArray = new JSONArray();
+        Map map = new HashMap();
+        List rtnList = new ArrayList();
+        for (int i = 0; i < diffList.size(); i++) {
+            List list = new ArrayList();
+            list.add(diffList.get(i));
+            map.put(i, list);
+            rtnList.add(list);
+        }
+        System.out.println(diffList);
+        System.out.println(JacksonUtil.ObjectToJson(diffList));
+        System.out.println(JacksonUtil.mapToJson(map));
+        System.out.println(JacksonUtil.ObjectToJson(rtnList));
+    }
+
+    /**
+     * --list
+     * {
+     * "code": "1231",
+     * "message": "合同信息不一致",
+     * "data": [
+     * "aaa",
+     * "bbb"
+     * ]
+     * }
+     * <p>
+     * --map
+     * {
+     * "code": "1231",
+     * "message": "合同信息不一致",
+     * "data": {
+     * "a": 2,
+     * "b": 3,
+     * "c": 4
+     * }
+     * }
+     * <p>
+     * --list中map
+     * {
+     * "code": "1231",
+     * "message": "合同信息不一致",
+     * "data": [
+     * {
+     * "a": 2,
+     * "b": 3,
+     * "c": 4
+     * }
+     * ]
+     * }
+     * <p>
+     * --复杂类型
+     * --第一个data为list，包含多个map，每个map中都有一个data也为list，里面包含多个map。
+     * {
+     * "code": "1231",
+     * "message": "合同信息不一致",
+     * "data": [
+     * {
+     * "applSeq": "9274245",
+     * "data": [
+     * {
+     * "new": "天津市",
+     * "old": "北京市",
+     * "key": "mrtgRgstPlc",
+     * "desc": "抵押登记地点"
+     * },
+     * {
+     * "new": "张三new",
+     * "old": "张三old",
+     * "key": "name",
+     * "desc": "客户姓名"
+     * },
+     * {
+     * "new": "150000.00",
+     * "old": "140001.00",
+     * "key": "vhclPrc",
+     * "desc": "车辆价格"
+     * }
+     * ],
+     * "ectrName": "长安信托-九江借款抵押合同（无车架号）",
+     * "ectrDefCde": "00000031"
+     * }
+     * ]
+     * }
+     */
+    @Test
+    public void testRtnJson() {
+        JsonResponse jsonResponse = new JsonResponse();
+        jsonResponse.setCode("1231").setMessage("合同信息不一致");
+        List<Object> data1 = new ArrayList<>();
+        HashMap<String, Object> data1Map = new HashMap<>();
+        List<Map> data2 = new ArrayList<>();
+        Map<String, Object> data2Map1 = new HashMap<>();
+        data2Map1.put("key", "mrtgRgstPlc");
+        data2Map1.put("desc", "抵押登记地点");
+        data2Map1.put("old", "北京市");
+        data2Map1.put("new", "天津市");
+        Map<String, Object> data2Map2 = new HashMap<>();
+        data2Map2.put("key", "name");
+        data2Map2.put("desc", "客户姓名");
+        data2Map2.put("old", "张三old");
+        data2Map2.put("new", "张三new");
+        Map<String, Object> data2Map3 = new HashMap<>();
+        data2Map3.put("key", "vhclPrc");
+        data2Map3.put("desc", "车辆价格");
+        data2Map3.put("old", "140001.00");
+        data2Map3.put("new", "150000.00");
+        data2.add(data2Map1);
+        data2.add(data2Map2);
+        data2.add(data2Map3);
+        data1Map.put("data", data2);
+        data1Map.put("applSeq", "9274245");
+        data1Map.put("ectrName", "长安信托-九江借款抵押合同（无车架号）");
+        data1Map.put("ectrDefCde", "00000031");
+        data1.add(data1Map);
+        jsonResponse.setData(data1);
+        System.out.println(JacksonUtil.ObjectToJson(jsonResponse));
     }
 }
