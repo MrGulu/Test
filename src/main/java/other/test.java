@@ -16,6 +16,10 @@ import java.net.URLDecoder;
 import java.util.*;
 import java.util.function.Consumer;
 
+import static constant.Constant.FLAG_ONE;
+import static constant.Constant.FLAG_THREE;
+import static constant.Constant.FLAG_TWO;
+
 public class test {
     public static final Logger logger = LoggerFactory.getLogger(test.class);
     public static void main(String[] args) {
@@ -566,5 +570,72 @@ public class test {
         data1.add(data1Map);
         jsonResponse.setData(data1);
         System.out.println(JacksonUtil.ObjectToJson(jsonResponse));
+    }
+
+
+    @Test
+    @SuppressWarnings("all")
+    public void testJava8() {
+        String result = "{\n" +
+                "\t\"code\": \"0000\",\n" +
+                "\t\"message\": \"ok\",\n" +
+                "\t\"data\": {\n" +
+                "\t\t\"reqsys\": \"cfs\",\n" +
+                "\t\t\"prod\": {\n" +
+                "\t\t\t\"prodBrandCde\": \"hello\",\n" +
+                "\t\t\t\"insurances\": [\n" +
+                "\t\t\t\t{\n" +
+                "\t\t\t\t\t\"years\": \"1年\",\n" +
+                "\t\t\t\t\t\"priceRange\": \"30万以下\",\n" +
+                "\t\t\t\t\t\"premium\": \"1000.00\"\n" +
+                "\t\t\t\t},\n" +
+                "\t\t\t\t{\n" +
+                "\t\t\t\t\t\"years\": \"2年\",\n" +
+                "\t\t\t\t\t\"priceRange\": \"50万以下\",\n" +
+                "\t\t\t\t\t\"premium\": \"2000.00\"\n" +
+                "\t\t\t\t}\n" +
+                "\t\t\t]\n" +
+                "\t\t}\n" +
+                "\t}\n" +
+                "}";
+        String imeiCde = null;
+        String flag = "3";
+        String years = "1年";
+        String priceRange = "30万以下";
+        final String[] premium = {null};
+        JSONObject jsonObject;
+        jsonObject = JSON.parseObject(result).getJSONObject("data").getJSONObject("prod");
+        System.out.println("获取insurances：\n"+jsonObject.toJSONString());
+
+        JSONArray jsonArray = jsonObject.getJSONArray("insurances");
+        List<String> list = new ArrayList<>();
+        switch (flag) {
+            case FLAG_ONE:
+                jsonArray.stream()
+                        .map(o -> ((JSONObject) o).getString("years"))
+                        .forEach(s -> list.add(s));
+                System.out.println(list);
+                break;
+            case FLAG_TWO:
+                jsonArray.stream()
+                        .map(o -> ((JSONObject) o).getString("priceRange"))
+                        .forEach(s -> list.add(s));
+                System.out.println(list);
+                break;
+            case FLAG_THREE:
+                String finalYears = years;
+                String finalPriceRange = priceRange;
+                Optional<Object> first = jsonArray.stream()
+                        .filter(o -> finalYears.equals(((JSONObject) o).getString("years"))
+                                && finalPriceRange.equals(((JSONObject) o).getString("priceRange")))
+                        .findFirst();
+                first.ifPresent(o -> premium[0] = ((JSONObject) o).getString("premium"));
+                System.out.println(premium[0]);
+                break;
+            default:
+                logger.error("非法flag值！");
+                break;
+        }
+
     }
 }
