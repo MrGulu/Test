@@ -12,16 +12,19 @@ import utils.ReadProperties;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
-import static constant.Constant.FLAG_ONE;
-import static constant.Constant.FLAG_THREE;
-import static constant.Constant.FLAG_TWO;
+import static constant.Constant.*;
 
 public class test {
     public static final Logger logger = LoggerFactory.getLogger(test.class);
+
     public static void main(String[] args) {
 //        String s = "admin";
 //        System.out.println(Long.valueOf(s));
@@ -30,7 +33,7 @@ public class test {
         logger.info("hello");
 
         try {
-            String docCde = URLDecoder.decode( "/%E8%BA%AB%E4%BB%BD%E8%AF%81%E6%98%8E%E6%9D%90%E6%96%99/%E8%BA%AB%E4%BB%BD%E8%AF%81/%E8%BA%AB%E4%BB%BD%E8%AF%81%E6%AD%A3%E9%9D%A2", "UTF-8");
+            String docCde = URLDecoder.decode("/%E8%BA%AB%E4%BB%BD%E8%AF%81%E6%98%8E%E6%9D%90%E6%96%99/%E8%BA%AB%E4%BB%BD%E8%AF%81/%E8%BA%AB%E4%BB%BD%E8%AF%81%E6%AD%A3%E9%9D%A2", "UTF-8");
             System.out.println(docCde);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -44,9 +47,10 @@ public class test {
      */
     @Test
     public void test1() {
-        Map<String,Object> map = new HashMap<>();
-        Map<String,Object> mapNull = null;
-        Map<String,Object> mapTwo = new HashMap<>();;
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> mapNull = null;
+        Map<String, Object> mapTwo = new HashMap<>();
+        ;
         mapTwo.put("a", "A");
         mapTwo.put("b", "B");
         map.put("a", "A");
@@ -357,7 +361,7 @@ public class test {
         //处理结果
         Collections.addAll(diffList, diffDesc.toString().split(";"));
         System.out.println(diffList);
-        System.out.println(JacksonUtil.ObjectToJson(diffList));
+        System.out.println(JacksonUtil.objectToJson(diffList));
     }
 
     @Test
@@ -464,9 +468,9 @@ public class test {
             rtnList.add(list);
         }
         System.out.println(diffList);
-        System.out.println(JacksonUtil.ObjectToJson(diffList));
+        System.out.println(JacksonUtil.objectToJson(diffList));
         System.out.println(JacksonUtil.mapToJson(map));
-        System.out.println(JacksonUtil.ObjectToJson(rtnList));
+        System.out.println(JacksonUtil.objectToJson(rtnList));
     }
 
     /**
@@ -569,7 +573,7 @@ public class test {
         data1Map.put("ectrDefCde", "00000031");
         data1.add(data1Map);
         jsonResponse.setData(data1);
-        System.out.println(JacksonUtil.ObjectToJson(jsonResponse));
+        System.out.println(JacksonUtil.objectToJson(jsonResponse));
     }
 
 
@@ -599,13 +603,13 @@ public class test {
                 "\t}\n" +
                 "}";
         String imeiCde = null;
-        String flag = "3";
+        String flag = "1";
         String years = "1年";
         String priceRange = "30万以下";
         final String[] premium = {null};
         JSONObject jsonObject;
         jsonObject = JSON.parseObject(result).getJSONObject("data").getJSONObject("prod");
-        System.out.println("获取insurances：\n"+jsonObject.toJSONString());
+        System.out.println("获取insurances：\n" + jsonObject.toJSONString());
 
         JSONArray jsonArray = jsonObject.getJSONArray("insurances");
         List<String> list = new ArrayList<>();
@@ -615,12 +619,22 @@ public class test {
                         .map(o -> ((JSONObject) o).getString("years"))
                         .forEach(s -> list.add(s));
                 System.out.println(list);
+                JsonResponse jsonResponse = new JsonResponse();
+                jsonResponse.setCode("111");
+                jsonResponse.setMessage("jjj");
+                jsonResponse.setData(list);
+                System.out.println(JacksonUtil.objectToJson(jsonResponse));
                 break;
             case FLAG_TWO:
                 jsonArray.stream()
                         .map(o -> ((JSONObject) o).getString("priceRange"))
                         .forEach(s -> list.add(s));
                 System.out.println(list);
+                JsonResponse jsonResponse2 = new JsonResponse();
+                jsonResponse2.setCode("111");
+                jsonResponse2.setMessage("jjj");
+                jsonResponse2.setData(list);
+                System.out.println(JacksonUtil.objectToJson(jsonResponse2));
                 break;
             case FLAG_THREE:
                 String finalYears = years;
@@ -631,11 +645,172 @@ public class test {
                         .findFirst();
                 first.ifPresent(o -> premium[0] = ((JSONObject) o).getString("premium"));
                 System.out.println(premium[0]);
+                JsonResponse jsonResponse3 = new JsonResponse();
+                jsonResponse3.setCode("111");
+                jsonResponse3.setMessage("jjj");
+                jsonResponse3.setData(premium[0]);
+                System.out.println(JacksonUtil.objectToJson(jsonResponse3));
                 break;
             default:
                 logger.error("非法flag值！");
                 break;
         }
+    }
+
+    @Test
+    public void testEncoding() throws UnsupportedEncodingException {
+        String s = "30ä¸\u0087ä»¥ä¸\u008B";
+        //如果字符串已经在请求的过程中被通过ISO-8859-1编码转换了（以这个编码方式转成字节数组），那么这时候需要还是通过这个编码方式还原字节数组，然后使用UTF-8方式编码，这样中文就不会乱码了
+        String str = new String(s.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        String str2 = new String(s.getBytes(), StandardCharsets.UTF_8);
+        System.out.println(str);
+        System.out.println(str2);
+
+        //如果本身就是汉字，经过下面的方式是不可以的
+        String s2 = "30万以下";
+        String str3 = new String(s2.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        System.out.println(str3);
 
     }
+
+    @Test
+    public void testBigDecimal() {
+        String s = "1000.006";
+        //并不会进行精度的控制，只是单纯把String类型转成BigDecimal，但是这样的话，如果数据库中指定数据类型为NUMBER(18,2)
+        //设置为两位小数的话，入库就会出问题
+        BigDecimal bigDecimal = new BigDecimal(s);
+        //会返回一个新的BigDecimal对象
+        BigDecimal bigDecimal1 = bigDecimal.setScale(2, RoundingMode.HALF_UP);
+        System.out.println(bigDecimal);
+        System.out.println(bigDecimal1);
+
+
+        System.out.println(formatToNumber(new BigDecimal("3.435")));
+        System.out.println(formatToNumber(new BigDecimal(0)));
+        System.out.println(formatToNumber(new BigDecimal("0.00")));
+        System.out.println(formatToNumber(new BigDecimal("0.001")));
+        System.out.println(formatToNumber(new BigDecimal("0.006")));
+        System.out.println(formatToNumber(new BigDecimal("0.206")));
+        System.out.println(formatToNumber(new BigDecimal("2000.00")));
+
+    }
+
+    /**
+     * @param obj 传入的小数
+     * @return
+     * @desc 1.0~1之间的BigDecimal小数，格式化后失去前面的0,则前面直接加上0。
+     * 2.传入的参数等于0，则直接返回字符串"0.00"
+     * 3.大于1的小数，直接格式化返回字符串
+     */
+    public static String formatToNumber(BigDecimal obj) {
+        DecimalFormat df = new DecimalFormat("#.00");
+        if (obj.compareTo(BigDecimal.ZERO) == 0) {
+            return "0.00";
+        } else if (obj.compareTo(BigDecimal.ZERO) > 0 && obj.compareTo(new BigDecimal(1)) < 0) {
+            return "0" + df.format(obj).toString();
+        } else {
+            return df.format(obj).toString();
+        }
+    }
+
+    @Test
+    public void testListNull() {
+        List<String> list = null;
+        for (String s :
+                list) {
+            System.out.println(s);
+        }
+    }
+
+    /**
+     * 测试jackson工具
+     * 最后要转成json字符串的方法，最后调用的是同一个方法：
+     * return objectMapper.writeValueAsString(Object obj);
+     * 可以转化任何的java类型
+     * 如果是json字符串转化成其他类型，就需要使用具体的方法，转成实体类、容器类等。
+     */
+    //根据list中map中的某个值对list中的map元素进行排序，字符串类型的"01"、"02"、"03"升序~
+    @Test
+    public void testComparator() {
+        String s = "[\n" +
+                "\t{\n" +
+                "\t\t\"custName\": \"秦谦谦\",\n" +
+                "\t\t\"list\": [\n" +
+                "\t\t\t{\n" +
+                "\t\t\t\t\"signCde\": \"318bd1e242581c590ef0793b7a5e14d6\",\n" +
+                "\t\t\t\t\"identNo\": \"370828199202261626\",\n" +
+                "\t\t\t\t\"signStatus\": \"4\",\n" +
+                "\t\t\t\t\"econtractCde\": null,\n" +
+                "\t\t\t\t\"econtractName\": \"长安信托个人汽车消费借款及抵押合同-独资版\",\n" +
+                "\t\t\t\t\"econtractDefCde\": null,\n" +
+                "\t\t\t\t\"ectrDefCde\": \"00000009\",\n" +
+                "\t\t\t\t\"econtractUrl\": \"http://openapi.bestsign.info:80/fe/intf/v2/#/previewSign?developerId=1841170298758496808&rtick=1560843123651978&signType=token&sign=eyJkZXZlbG9wZXJJZCI6IjE4NDExNzAyOTg3NTg0OTY4MDgiLCJjYXRhbG9nSWQiOiI1OTEyMDczNzcyMzExNTExNzUzIiwiY29udHJhY3RJZCI6IiIsImV4cGlyZUF0IjoiMTU2MTQ0NzkyMyIsImFjY291bnQiOiI3NDAyMDk5NyJ9LjE1NjA4NDMxMjM2NTAyMTkz.51551b22fdf938d6e3a07e0588026cda&catalogId=5912073772311511753&signerAccount=74020997&dpi=240&sid=\",\n" +
+                "\t\t\t\t\"status\": \"1\"\n" +
+                "\t\t\t},\n" +
+                "\t\t\t{\n" +
+                "\t\t\t\t\"signCde\": \"318bd1e242581c590ef0793b7a5e14d6\",\n" +
+                "\t\t\t\t\"identNo\": \"370828199202261626\",\n" +
+                "\t\t\t\t\"signStatus\": \"4\",\n" +
+                "\t\t\t\t\"econtractCde\": null,\n" +
+                "\t\t\t\t\"econtractName\": \"长安信托-委托扣款授权书\",\n" +
+                "\t\t\t\t\"econtractDefCde\": null,\n" +
+                "\t\t\t\t\"ectrDefCde\": \"00000018\",\n" +
+                "\t\t\t\t\"econtractUrl\": \"http://openapi.bestsign.info:80/fe/intf/v2/#/previewSign?developerId=1841170298758496808&rtick=1560843123862845&signType=token&sign=eyJkZXZlbG9wZXJJZCI6IjE4NDExNzAyOTg3NTg0OTY4MDgiLCJjYXRhbG9nSWQiOiIyNjcwMDUyMzAyNjg2Njc0OTMiLCJjb250cmFjdElkIjoiIiwiZXhwaXJlQXQiOiIxNTYxNDQ3OTIzIiwiYWNjb3VudCI6Ijc0MDIwOTk3In0uMTU2MDg0MzEyMzg2MjEyMDE_.8932fcde7ed3727e46934b477c612de0&catalogId=267005230268667493&signerAccount=74020997&dpi=240&sid=\",\n" +
+                "\t\t\t\t\"status\": \"1\"\n" +
+                "\t\t\t}\n" +
+                "\t\t],\n" +
+                "\t\t\"apptSeq\": \"9286744\",\n" +
+                "\t\t\"apptTyp\": \"01\"\n" +
+                "\t},\n" +
+                "\t{\n" +
+                "\t\t\"custName\": \"测试哈哈哈\",\n" +
+                "\t\t\"list\": [\n" +
+                "\t\t\t{\n" +
+                "\t\t\t\t\"signCde\": \"318bd1e242581c590ef0793b7a5e14d6\",\n" +
+                "\t\t\t\t\"identNo\": \"370283199501114310\",\n" +
+                "\t\t\t\t\"signStatus\": \"4\",\n" +
+                "\t\t\t\t\"econtractCde\": null,\n" +
+                "\t\t\t\t\"econtractName\": \"长安信托个人汽车消费借款及抵押合同-独资版\",\n" +
+                "\t\t\t\t\"econtractDefCde\": null,\n" +
+                "\t\t\t\t\"ectrDefCde\": \"00000009\",\n" +
+                "\t\t\t\t\"econtractUrl\": \"http://openapi.bestsign.info:80/fe/intf/v2/#/previewSign?developerId=1841170298758496808&rtick=1560843147911432&signType=token&sign=eyJkZXZlbG9wZXJJZCI6IjE4NDExNzAyOTg3NTg0OTY4MDgiLCJjYXRhbG9nSWQiOiI1OTEyMDczNzcyMzExNTExNzUzIiwiY29udHJhY3RJZCI6IiIsImV4cGlyZUF0IjoiMTU2MTQ0Nzk0NyIsImFjY291bnQiOiI3NDAyMDk5NyJ9LjE1NjA4NDMxNDc5MTE1NDEx.0a0d73b4907fd3827fe1294e0e01f249&catalogId=5912073772311511753&signerAccount=74020997&dpi=240&sid=\",\n" +
+                "\t\t\t\t\"status\": \"1\"\n" +
+                "\t\t\t}\n" +
+                "\t\t],\n" +
+                "\t\t\"apptSeq\": \"9286755\",\n" +
+                "\t\t\"apptTyp\": \"03\"\n" +
+                "\t},\n" +
+                "\t\t{\n" +
+                "\t\t\"custName\": \"唐文龙\",\n" +
+                "\t\t\"list\": [\n" +
+                "\t\t\t{\n" +
+                "\t\t\t\t\"signCde\": \"318bd1e242581c590ef0793b7a5e14d6\",\n" +
+                "\t\t\t\t\"identNo\": \"370283199501114310\",\n" +
+                "\t\t\t\t\"signStatus\": \"4\",\n" +
+                "\t\t\t\t\"econtractCde\": null,\n" +
+                "\t\t\t\t\"econtractName\": \"长安信托个人汽车消费借款及抵押合同-独资版\",\n" +
+                "\t\t\t\t\"econtractDefCde\": null,\n" +
+                "\t\t\t\t\"ectrDefCde\": \"00000009\",\n" +
+                "\t\t\t\t\"econtractUrl\": \"http://openapi.bestsign.info:80/fe/intf/v2/#/previewSign?developerId=1841170298758496808&rtick=1560843147911432&signType=token&sign=eyJkZXZlbG9wZXJJZCI6IjE4NDExNzAyOTg3NTg0OTY4MDgiLCJjYXRhbG9nSWQiOiI1OTEyMDczNzcyMzExNTExNzUzIiwiY29udHJhY3RJZCI6IiIsImV4cGlyZUF0IjoiMTU2MTQ0Nzk0NyIsImFjY291bnQiOiI3NDAyMDk5NyJ9LjE1NjA4NDMxNDc5MTE1NDEx.0a0d73b4907fd3827fe1294e0e01f249&catalogId=5912073772311511753&signerAccount=74020997&dpi=240&sid=\",\n" +
+                "\t\t\t\t\"status\": \"1\"\n" +
+                "\t\t\t}\n" +
+                "\t\t],\n" +
+                "\t\t\"apptSeq\": \"9286755\",\n" +
+                "\t\t\"apptTyp\": \"02\"\n" +
+                "\t}\n" +
+                "]";
+        Set<Map> set = JacksonUtil.jsonToCollectionSet(s, Set.class, Map.class);
+        System.out.println(set);
+        System.out.println(JacksonUtil.objectToJson(set));
+        System.out.println("*************************************");
+
+        List<Map> maps = JacksonUtil.jsonToCollectionList(s, List.class, Map.class);
+        maps = maps.stream()
+                .sorted(Comparator.comparing(map -> map.get("apptTyp").toString()))
+                .collect(Collectors.toList());
+        System.out.println("*************************************");
+        System.out.println(JacksonUtil.objectToJson(maps));
+    }
+
+
 }

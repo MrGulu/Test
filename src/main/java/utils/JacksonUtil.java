@@ -13,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 
@@ -56,7 +57,7 @@ public class JacksonUtil {
 	 * @param object
 	 * @return  String
 	 */
-	public static String ObjectToJson(Object object) {
+	public static String objectToJson(Object object) {
 		if (objectMapper == null) {
 			objectMapper = new ObjectMapper();
 		}
@@ -113,18 +114,17 @@ public class JacksonUtil {
 	}
 	
 	/**
-	 * 
-	 * @Description(功能描述)    :  json转list
-	 * @author(作者)         ：Cola
-	 * @date (开发日期)      ：2017-8-8 下午4:23:11
-	 * @exception                : 
+	 *
+	 * @description 将json字符串转成list，带子元素类型（例如：List<Map>）
+	 * 				使用方法示例：
+	 * 			        List<Map> maps = JacksonUtil.jsonToCollectionList(s, List.class, Map.class);
 	 * @param json
 	 * @param collectionClass
 	 * @param elementClasses
 	 * @return  List<?>
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> List<T> jsonToCollection(String json,Class<?> collectionClass, Class<T> elementClasses){
+	public static <T> List<T> jsonToCollectionList(String json, Class<?> collectionClass, Class<T> elementClasses) {
 		if (objectMapper == null) {
 			objectMapper = new ObjectMapper();
 		}
@@ -136,6 +136,20 @@ public class JacksonUtil {
 			e.printStackTrace();
 		} 
 		return list ;
+	}
+
+	public static <T> Set<T> jsonToCollectionSet(String json, Class<?> collectionClass, Class<T> elementClasses) {
+		if (objectMapper == null) {
+			objectMapper = new ObjectMapper();
+		}
+		JavaType javaType = getCollectionType(collectionClass, elementClasses);
+		Set<T> set = null;
+		try {
+			set = (Set<T>) objectMapper.readValue(json, javaType);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return set;
 	}
 	
 	/**

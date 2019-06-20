@@ -112,7 +112,7 @@ public class StreamTest6 {
         Map<Emp3.Status, List<Emp3>> collect = emps.stream()
                 .collect(Collectors.groupingBy(Emp3::getStatus));
         System.out.println(collect);
-        System.out.println(JacksonUtil.ObjectToJson(collect));
+        System.out.println(JacksonUtil.objectToJson(collect));
         System.out.println(JSON.toJSONString(collect));
     }
 
@@ -132,7 +132,7 @@ public class StreamTest6 {
                     }
                 })));
         System.out.println(collect);
-        System.out.println(JacksonUtil.ObjectToJson(collect));
+        System.out.println(JacksonUtil.objectToJson(collect));
         System.out.println(JSON.toJSONString(collect));
     }
 
@@ -144,7 +144,7 @@ public class StreamTest6 {
         Map<Boolean, List<Emp3>> collect = emps.stream()
                 .collect(Collectors.partitioningBy(emp3 -> emp3.getSalary() >= 6666.66));
         System.out.println(collect);
-        System.out.println(JacksonUtil.ObjectToJson(collect));
+        System.out.println(JacksonUtil.objectToJson(collect));
         System.out.println(JSON.toJSONString(collect));
         //下面的方法是输出json形式的数据
         System.out.println(JSON.toJSONString(collect, true));
