@@ -1,4 +1,4 @@
-package Java8.other;
+package java8.other;
 
 import org.junit.Test;
 

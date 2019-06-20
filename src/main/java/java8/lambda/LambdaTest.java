@@ -1,6 +1,6 @@
-package Java8.Lambda;
+package java8.lambda;
 
-import Java8.Lambda.FunctionalInterfaces.Operation;
+import java8.lambda.FunctionalInterfaces.Operation;
 import org.junit.Test;
 
 public class LambdaTest {

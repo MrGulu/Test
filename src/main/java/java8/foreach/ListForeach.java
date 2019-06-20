@@ -1,4 +1,4 @@
-package Java8.Foreach;
+package java8.foreach;
 
 import java.util.ArrayList;
 import java.util.List;

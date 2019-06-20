@@ -1,4 +1,4 @@
-package FastJson.test2;
+package jsonParse.test2;
 
 import com.alibaba.fastjson.JSONObject;
 

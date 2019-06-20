@@ -1,6 +1,5 @@
-package FastJson.test2;
+package jsonParse.test2;
 
-import FastJson.test2.Student;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;

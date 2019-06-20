@@ -1,4 +1,4 @@
-package FastJson;
+package jsonParse;
 
 
 import lombok.Data;

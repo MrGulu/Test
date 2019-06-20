@@ -1,4 +1,4 @@
-package FastJson.test1;
+package jsonParse.test1;
 
 public class Book {
     private String name;

@@ -1,4 +1,4 @@
-package Java8;
+package java8;
 
 import domain.Emp3;
 import org.junit.Test;

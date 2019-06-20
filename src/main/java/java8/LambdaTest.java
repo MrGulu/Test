@@ -1,4 +1,4 @@
-package Java8;
+package java8;
 
 import domain.Emp;
 import domain.Emp3;
@@ -27,7 +27,7 @@ public class LambdaTest {
     }
 
     public void java8Test() {
-        List<String> words = Arrays.asList("Java8", "Lambdas", "In", "Action");
+        List<String> words = Arrays.asList("java8", "Lambdas", "In", "Action");
         List<Integer> wordLengths = words.stream()
                 .map(String::length)
                 .collect(toList());

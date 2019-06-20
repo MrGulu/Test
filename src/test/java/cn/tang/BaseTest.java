@@ -11,7 +11,7 @@ import static java.util.stream.Collectors.toList;
 public class BaseTest {
     @Test
     public void test() {
-        List<String> words = Arrays.asList("Java8", "Lambdas", "In", "Action");
+        List<String> words = Arrays.asList("java8", "Lambdas", "In", "Action");
         List<Integer> wordLengths = words.stream()
                 .map(String::length)
                 .collect(toList());
