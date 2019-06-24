@@ -162,7 +162,9 @@ public class StreamTest6 {
     }
 
     /**
-     * 总结获取各种结果summarizingDouble……
+     *  总结获取各种结果summarizingDouble……
+     * 对于int、double、long作了特殊处理.
+     * 获取对应类型的conut、sum、max、min、avg
      */
     @Test
     public void test6() {
@@ -181,16 +183,25 @@ public class StreamTest6 {
     @Test
     public void test7() {
         //拼接
+        /**
+         * 张三唐三bbbaaa李四王五赵六
+         */
         String collect = emps.stream()
                 .map(Emp3::getName)
                 .collect(Collectors.joining());
         System.out.println(collect);
         //分隔符
+        /**
+         * 张三,唐三,bbb,aaa,李四,王五,赵六
+         */
         String collect1 = emps.stream()
                 .map(Emp3::getName)
                 .collect(Collectors.joining(","));
         System.out.println(collect1);
         //分隔符以及前缀、后缀
+        /**
+         * ===张三,唐三,bbb,aaa,李四,王五,赵六===
+         */
         String collect2 = emps.stream()
                 .map(Emp3::getName)
                 .collect(Collectors.joining(",", "===", "==="));

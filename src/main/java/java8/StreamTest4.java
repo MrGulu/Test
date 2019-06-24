@@ -132,7 +132,7 @@ public class StreamTest4 {
     @Test
     public void test8() {
         Optional<Emp3> min1 = emps.stream()
-//                下面三种方式都可以
+//                下面三种方式都可以，最后调用的都是Double.compare方法
 //                .min((x, y) -> x.getSalary().compareTo(y.getSalary()));
 //                .min((x, y) -> Double.compare(x.getSalary(), y.getSalary()));
                 .min(Comparator.comparingDouble(Emp3::getSalary));
@@ -153,14 +153,27 @@ public class StreamTest4 {
          * 上面也可以使用最后一种方式，这是Comparator接口的一个静态方法（JDK1.8之后接口中可以存在静态方法）
          * public static<T> Comparator<T> comparingDouble(ToDoubleFunction<? super T> keyExtractor)
          * 它的返回值也是Comparator类型的，但是参数是一个ToDoubleFunction，它的方法为double applyAsDouble(T var1)
-         * 所以是接收一个T类型参数，返回值为固定的double。comparingDouble()方法最后还是调用的Double.compara()方法。
+         * 所以是接收一个T类型参数，返回值为固定的double。comparingDouble()方法最后还是调用的Double.compare()方法。
          * 而下面过滤出工资的情况是不适用这种方法的！多加揣摩一下！
          *
+         * 2019-06-24小记：
+         *  1.下面这种情况也是可以使用第三种方式的， .min(Comparator.comparingDouble(value -> value));
+         * 只不过在实现ToDoubleFunction<? super T> keyExtractor时，返回的是元素本身，因为前面的操作
+         * 已经将工资过滤出来了，这时候元素中的值就已经是double类型的工资值了。
+         *  2.测试的时候还发现，在使用max或者min方法时，对于参数，使用方法引用时，有两种方法都可以使用：
+         * 一是：Double::compareTo   public int compareTo(Double anotherDouble)
+         *  使用的是 类名::实例方法名 引用方式
+         * 二是：Double::compare   public static int compare(double d1, double d2)
+         *  使用的是 类名::静态方法名 引用方式
+         * 其实Double::compareTo最后调用的还是Double::compare方法！
          */
         Optional<Double> minSalary = emps.stream()
                 .map(Emp3::getSalary)
 //                .min((x,y) -> x.compareTo(y));
-                .min(Double::compare);
+//                .min((x,y) -> Double.compare(x,y));
+//                .min(Double::compareTo);
+//                .min(Double::compare);
+                .min(Comparator.comparingDouble(value -> value));
         minSalary.ifPresent(System.out::println);
     }
 }

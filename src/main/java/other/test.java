@@ -18,7 +18,6 @@ import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import static constant.Constant.*;
 
@@ -721,6 +720,20 @@ public class test {
                 list) {
             System.out.println(s);
         }
+    }
+
+    @Test
+    public void testImmutableClass() {
+        System.out.println("abc");
+        String cde = "cde";
+        System.out.println("abc" + cde);
+        String c = "abc".substring(2, 3);
+        String d = cde.substring(1, 2);
+        System.out.println(c);
+        System.out.println(d);
+        System.out.println("************************");
+        Integer integer = Integer.valueOf("33");
+        System.out.println(Integer.toString(5, 2));
     }
 
 }

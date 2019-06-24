@@ -34,7 +34,7 @@ public class StreamTest3 {
      */
     @Test
     public void test1() {
-        List<String> list = Arrays.asList("a", "b", "cc", "eeee", "aaa", "bbb", "ccc", "ddd");
+        List<String> list = Arrays.asList("a", "b", "cc", "eeee", "CB", "C", "AA", "A", "AB", "aaa", "bbb", "ccc", "ddd");
         list.stream()
                 .sorted()
                 .forEach(System.out::println);

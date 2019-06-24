@@ -41,6 +41,7 @@ public class Emp3 {
      * 建议所有子类都重写此方法。Object 类的 toString 方法返回一个字符串，
      * 该字符串由类名（对象是该类的一个实例）、at 标记符“@”和此对象哈希码的无符号十六进制表示组成。
      * 换句话说，该方法返回一个字符串，它的值等于：getClass().getName() + '@' + Integer.toHexString(hashCode())
+     * 示例：domain.Emp3@93b37d1d
      */
 
 

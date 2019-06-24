@@ -46,5 +46,11 @@ public class StreamTest5 {
                 .map(Emp3::getSalary)
                 .reduce(Double::sum);
         salarySum.ifPresent(System.out::println);
+        //如果存在，返回；如果不存在，返回orElse参数值
+        Double orElse = salarySum.orElse(9999.99);
+        System.out.println(orElse);
+        //如果存在，返回；如果不存在，抛出异常
+        Double orElseThrow = salarySum.orElseThrow(NullPointerException::new);
+        System.out.println(orElseThrow);
     }
 }
