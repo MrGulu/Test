@@ -157,7 +157,7 @@ public class ApplAccInfoService implements IApplAccInfoService {
 
             }
 
-        } catch (exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return repayInfo;
@@ -197,7 +197,7 @@ public class ApplAccInfoService implements IApplAccInfoService {
                 applAccInfoSeqBig = new BigDecimal(applAccInfoSeq);
             }
             logger.info("[查询applAccInfoSeq成功]" + "applAccInfoService->modifyAccBankInfo");
-        }catch (exception e){
+        }catch (Exception e){
             e.printStackTrace();
             logger.info("[查询applAccInfoSeq异常]" + "applAccInfoService->modifyAccBankInfo");
         }
@@ -208,7 +208,7 @@ public class ApplAccInfoService implements IApplAccInfoService {
         int flag;
         try {
             count = this.selectCountByApplSeq(record.getApplSeq());
-        } catch (exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if (count > 0) {
@@ -223,7 +223,7 @@ public class ApplAccInfoService implements IApplAccInfoService {
     public int updateSendCmisStsByApplSeq(String applSeq,String sendCmisSts){
         try{
             return applAccInfoMapper.updateSendCmisStsByApplSeq(applSeq,sendCmisSts);
-        }catch (exception e){
+        }catch (Exception e){
             e.printStackTrace();
             throw new BusinessException(RspCodeEnum.ERR69999,"操作数据库异常","更新还款信息异常");
         }
