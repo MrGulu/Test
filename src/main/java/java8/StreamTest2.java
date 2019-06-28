@@ -101,7 +101,7 @@ public class StreamTest2 {
      * 元素提取出来，然后放入flatMap中间操作后形成的新流！
      * <p>
      * 关联记忆：
-     * 这种类似于Collections.addAll(Collection<? extends E> coll)方法,
+     * 这种类似于Collections.addAll(collection<? extends E> coll)方法,
      * 是把传入的Collection类型中所包含的数据一个个拿出来，然后放入指定的集合中。
      * 因为map方法本来就是将函数型接口的实现
      * 结构类似：
