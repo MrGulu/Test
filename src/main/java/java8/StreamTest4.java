@@ -64,9 +64,11 @@ public class StreamTest4 {
     /**
      * Optional<T> findFirst()
      * <p>
-     * isPresent()
+     *
+     * 1- isPresent()
      * 方法返回布尔类型数据，如果存在数据返回true，否则返回false；
-     * ifPresent(Consumer<? super T> consumer)
+     *
+     * 2- ifPresent(Consumer<? super T> consumer)
      * 如果存在元素，则执行consumer操作
      */
     @Test
@@ -144,8 +146,8 @@ public class StreamTest4 {
          *  1.下面是直接对经过映射的工资进行操作，因为min()方法中参数
          * 为Comparator<? super T> comparator；所以用下面两种方式都可以，一种是用Lambda表达式实现这个接口.
          * 另一个是简写的方法引用。
-         * （这种方法引用采用的方式：〇类名::静态方法名   要求：静态方法名的参数列表和返回值要与函数式接口中方法的参数列表和返回值一致。
-         *  还有两种方法引用的方式：①对象名::实例方法名 要求：实例方法名的参数列表和返回值要与函数式接口中方法的参数列表和返回值一致。
+         * （这种方法引用采用的方式：〇类名::静态方法名   要求：静态方法的参数列表和返回值要与函数式接口中方法的参数列表和返回值一致。
+         *  还有两种方法引用的方式：①对象名::实例方法名 要求：实例方法的参数列表和返回值要与函数式接口中方法的参数列表和返回值一致。
          *                     ②类名::实例方法名   要求：第一个参数作为方法的发起者，第二个参数作为方法的参数传入，
          *                      例如在函数式接口BiPredicate中的方法boolean test(T var1, U var2)使用equals方法，
          *                      String::equals相当于(x,y) -> x.equals(y)）

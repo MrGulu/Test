@@ -3,6 +3,7 @@ package String;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.ReadProperties;
+import utils.StringUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
@@ -94,6 +95,16 @@ public class Test {
         int i = 123;
         int j = 22;
         System.out.println(Integer.valueOf(i).equals(j));
+    }
+
+    @org.junit.Test
+    public void test7() {
+        StringBuilder vviResultBuilder = new StringBuilder();
+        if (StringUtils.isEmpty(vviResultBuilder.toString())) {
+            System.out.println("true");
+        } else {
+            System.out.println("false");
+        }
     }
 
 }

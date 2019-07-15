@@ -1,5 +1,6 @@
 package date;
 
+import constant.Constant;
 import org.junit.Test;
 import utils.DateUtils;
 
@@ -201,6 +202,12 @@ public class FormatDateTime {
         if (!"长期".equals(validDate) && DateUtils.getDateByStr(validDate).getTime() < System.currentTimeMillis()) {
             System.out.println("过期了！");
         }
+    }
+
+    @Test
+    public void test6() {
+        String validDaysAgoDate = DateUtils.getNDaysAgoOrAfterFormatDateLong19(90, Constant.DATE_SIGN_AGO);
+        System.out.println(validDaysAgoDate);
     }
 
     public static boolean belongCalendar(Date nowTime, Date beginTime, Date endTime) {

@@ -117,14 +117,23 @@ public class LambdaTest {
 
     /**
      * 暂时有问题
+     * 20190715记录：
+     *  已解决：
+     *      发生原因：调用Arrays.asList()生产的List的add、remove方法时报异常，这是由Arrays.asList()
+     *          返回的是Arrays的内部类ArrayList， 而不是java.util.ArrayList。
+     *          Arrays的内部类ArrayList和java.util.ArrayList都是继承AbstractList，
+     *          remove、add等方法AbstractList中是默认throw UnsupportedOperationException而且不作任何操作。
+     *          java.util.ArrayList重新了这些方法而Arrays的内部类ArrayList没有重新，所以会抛出异常。
+     *      解决方法：使用new ArrayList<>(Collection<? extends E> c)，将其转化为ArrayList。
      */
     @Test
+    @SuppressWarnings("all")
     public void test3() {
         List<Emp3> paramList = Arrays.asList(new Emp3("张三", 18, 5555.55),
                 new Emp3("李四", 19, 6666.66),
                 new Emp3("王五", 20, 7777.77),
                 new Emp3("赵六", 21, 8888.88));
-        List<Emp3> list = test3Static(paramList, x -> {
+        List<Emp3> list = test3Static(new ArrayList<>(paramList), x -> {
             for (int i = x.size() - 1; i > 0; i--) {
                 if (x.get(i).getSalary() <= 7777.77) {
                     x.remove(i);
@@ -132,6 +141,7 @@ public class LambdaTest {
             }
             return x;
         });
+        System.out.println(list);
     }
 
     private static List<Emp3> test3Static(List<Emp3> list, Function<List<Emp3>, List<Emp3>> function) {

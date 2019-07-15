@@ -30,7 +30,7 @@ public class StreamTest2 {
      */
     @Test
     public void test1() {
-        System.out.println("--------------------------");
+        System.out.println("1--------------------------");
         emps.stream()
                 .filter(emp3 -> emp3.getSalary() <= 7777.77)
                 .mapToDouble(Emp3::getSalary)

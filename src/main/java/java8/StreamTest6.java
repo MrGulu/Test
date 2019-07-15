@@ -133,7 +133,7 @@ public class StreamTest6 {
                 })));
         System.out.println(collect);
         System.out.println(JacksonUtil.objectToJson(collect));
-        System.out.println(JSON.toJSONString(collect));
+        System.out.println(JSON.toJSONString(collect, true));
     }
 
     /**
