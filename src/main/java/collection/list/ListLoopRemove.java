@@ -151,6 +151,12 @@ public class ListLoopRemove {
         ListIterator<String> iterator = list.listIterator();
         while (iterator.hasNext()) {
             if ("c".equals(iterator.next())) {
+                /**
+                 * 当时用了iterator进行遍历list时，删除与添加元素是就不能使用list了，
+                 * 只能使用iterator的相关方法，否则会抛出java.util.ConcurrentModificationException
+                 * 详情请看test4()
+                 */
+//                list.remove("c");
                 iterator.remove();
                 iterator.add("listIterator");
             }
@@ -241,3 +247,14 @@ public class ListLoopRemove {
         System.out.println(list);
     }
 }
+
+/**
+ * 总结：
+ * 1.在使用Iterator进行遍历时，不能使用list对象进行remove或add操作，要是用iterator对象操作
+ * 2.在使用List进行遍历时，可以使用list对象进行remove或add操作，但是为了保证操作正确，需要进行
+ * 相应的操作，详见test2()。
+ * 也可以在正常遍历的情况下，remove之后紧接着执行add操作，这样size大小是不变的，所以不会引发相应错误。
+ * 3.使用Arrays.asList()方法时，返回的List对象是一个，Arrays类的内部类对象，不能调用remove或者add方法，
+ * 因为此类中未对这些方法重写，所以会抛出UnsupportedOperationException异常。
+ * 4.综上可知，如果想对list进行remove和add操作，使用Iterator比较好（ListIterator）
+ */
