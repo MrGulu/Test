@@ -38,7 +38,7 @@ public class ArraysTest {
      * 排序List中包含Map
      */
     @Test
-    public void test() {
+    public void test3() {
         Map<String, Object> map1 = new HashMap<>();
         map1.put("id", "a");
         map1.put("name", "first");

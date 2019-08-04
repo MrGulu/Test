@@ -11,6 +11,16 @@ public class Student {
     private String sex;
     public String name;
 
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", age=" + age +
+                ", sex='" + sex + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

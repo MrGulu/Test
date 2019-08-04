@@ -96,7 +96,7 @@ public class ListLoopRemove {
      * 返回的是Arrays的内部类ArrayList， 而不是java.util.ArrayList。
      * Arrays的内部类ArrayList和java.util.ArrayList都是继承AbstractList，
      * remove、add等方法AbstractList中是默认throw UnsupportedOperationException而且不作任何操作。
-     * java.util.ArrayList重新了这些方法而Arrays的内部类ArrayList没有重新，所以会抛出异常。
+     * java.util.ArrayList重写了这些方法而Arrays的内部类ArrayList没有重写，所以会抛出异常。
      * 解决方法：使用new ArrayList<>(Collection<? extends E> c)，将其转化为ArrayList。
      */
     @Test
@@ -185,6 +185,14 @@ public class ListLoopRemove {
 
         这是因为只有在调用到比较second时，才会调用add方法添加元素，这时候modCount的值才与一开始的expectedModCount值
      不一样，在下一次执行iter.next获取第三个元素的时候抛出了异常！
+
+
+     　快速失败只是一种直译，它不是音译，但，近似与意译。
+     　　就如同手机一样，并不是只有拿在手里才能用，放在兜里，它照样能用。
+     　　java中快速失败是指某个线程在迭代vector的时候，不允许其他线程修改该vector的内容。
+     　　这样迭代器迭代出来的结果就会不准确，如用iterator迭代collection的时候，iterator就是另外起的一个线程，
+     它去迭代collection，如果此时用collection.remove(obj)这个方法修改了collection里面的内容的时候，
+     就会出现ConcurrentModificationException异常,这时候该迭代器就快速失败。
      */
     @Test
     public void test4() {
@@ -207,7 +215,7 @@ public class ListLoopRemove {
      *  若想对list进行添加或者删除操作，就不能直接调用list.add或者list.remove方法！
      * 可以使用Iterator对象，执行相应的添加或者删除元素的操作，这样一来，默认的count也会随之改变，不会发生异常。
      * 但是需要注意一点：
-     *  1.如果只是使用Iterator类型对象，那么只能使用remove方法，不能添加元素
+     *  1.如果只是使用Iterator类型对象，那么只能使用remove方法，不能添加元素(因为普通的Iterator对象没有add方法，而ListIterator有add方法)
      *  2.如果想添加元素，需要使用ListIterator对象，该对象也支持remove方法等一些针对于list的额外方法，非常方便。
      *
      *  如果只是想在满足某些条件的情况下，删除某些元素，也可以将需要删除的元素放到一个集合当中，在遍历结束之后，
