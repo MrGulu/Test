@@ -37,11 +37,14 @@ import java.util.concurrent.TimeUnit;
  */
 public class Twelve {
     //对比一下有无volatile的情况下，整个程序运行结果的区别
-    /*volatile*/ boolean running = true;
+    volatile boolean running = true;
+    private int count;
 
     void m() {
         System.out.println("m start");
         while (running) {
+            //只有一个线程访问count，执行++操作，不会引发线程安全问题
+            count++;
             System.out.println("1");
 //            try {
 //                TimeUnit.MILLISECONDS.sleep(1000);
@@ -50,6 +53,7 @@ public class Twelve {
 //            }
         }
         System.out.println("m end");
+        System.out.println(count + "");
     }
 
     public static void main(String[] args) {

@@ -13,8 +13,7 @@ import java.util.concurrent.CountDownLatch;
  */
 public class T01_ConcurrentMap {
     public static void main(String[] args) {
-        //300ms左右
-        //10个线程放1亿数据时，耗时20s，cpu 100%，哇。
+
         /**
          * 300ms左右
          * 10个线程放1亿数据时，耗时20s，cpu 100%，哇。

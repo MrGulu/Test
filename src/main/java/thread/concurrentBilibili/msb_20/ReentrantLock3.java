@@ -48,7 +48,7 @@ public class ReentrantLock3 {
         boolean locked = false;
         try {
             //这里等待几秒，其实就是m1中打印到几（因为主线程中还休眠了1s，才启动第二个线程）
-            //如果获取不到锁，就继续往下执行；不想lock方法，如果获取不到，会一直等，直到海枯石烂
+            //如果获取不到锁，就继续往下执行；不像lock方法，如果获取不到，会一直等，直到海枯石烂
             locked = lock.tryLock(3, TimeUnit.SECONDS);
             System.out.println("m2……" + locked);
         } catch (InterruptedException e) {

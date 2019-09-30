@@ -32,9 +32,9 @@ public class FormatDateTime {
 
         /**
          *
-         *  SimpleDateFormat sdf = new SimpleDateFormat();
-         String d = sdf.format(date date);
-         date d = sdf.parse(String sourse);
+         SimpleDateFormat sdf = new SimpleDateFormat();
+         String dateString = sdf.format(Date date);
+         Date date = sdf.parse(String sourse);
          * */
 
     }
@@ -57,6 +57,38 @@ public class FormatDateTime {
             System.out.println("该客户六个月内未提交过预审批，可以进行预审批业务！");
         }
     }
+
+    /**
+     * 比较日期间隔多少天
+     * 注意一开始        format.applyPattern("yyyy-MM-dd HH:mm:ss");
+     * 但是比较天数的话，如果这样，
+     * now:      Tue Aug 27 14:31:23 CST 2019
+     * getDate:  Sun Aug 25 14:57:18 CST 2019
+     * 那么上面两个时间用下面方法是相差1天的，因为还没过27号14:57:18，所以要是用
+     * format.applyPattern("yyyy-MM-dd");
+     *
+     * @throws ParseException
+     */
+    @Test
+    public void test11() throws ParseException {
+        Date now = new Date();
+        SimpleDateFormat format = new SimpleDateFormat();
+        format.applyPattern("yyyy-MM-dd");
+        Calendar calendar1 = Calendar.getInstance();
+        Calendar calendar2 = Calendar.getInstance();
+        calendar1.setTime(now);
+        calendar2.setTime(format.parse("2015-04-15 14:57:18"));
+        System.out.println("now:      " + now + "\ngetDate:  " + format.parse("2015-04-15 14:57:18"));
+        long sum = (calendar1.getTimeInMillis() - calendar2.getTimeInMillis()) / 86400000L;
+        System.out.println(sum);
+        if (sum <= 180) {
+            System.out.println("该客户六个月内提交过预审批！");
+        } else {
+            System.out.println("该客户六个月内未提交过预审批，可以进行预审批业务！");
+        }
+    }
+
+
 
     /**
      * 比较日期间隔多少个月-方法1
@@ -204,6 +236,11 @@ public class FormatDateTime {
         }
     }
 
+    /**
+     * 获取当前日期之前或之后的多少天的日期。
+     * 比如现在是2019-08-27 14:20:43
+     * 调用方法后2019-05-29 14:20:43
+     */
     @Test
     public void test6() {
         String validDaysAgoDate = DateUtils.getNDaysAgoOrAfterFormatDateLong19(90, Constant.DATE_SIGN_AGO);

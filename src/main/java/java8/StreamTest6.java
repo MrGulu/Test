@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import domain.Emp3;
 import org.junit.Test;
 import utils.JacksonUtil;
+import utils.StringUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -113,7 +114,7 @@ public class StreamTest6 {
                 .collect(Collectors.groupingBy(Emp3::getStatus));
         System.out.println(collect);
         System.out.println(JacksonUtil.objectToJson(collect));
-        System.out.println(JSON.toJSONString(collect));
+        System.out.println(JSON.toJSONString(collect, true));
     }
 
     /**
@@ -164,17 +165,17 @@ public class StreamTest6 {
     /**
      *  总结获取各种结果summarizingDouble……
      * 对于int、double、long作了特殊处理.
-     * 获取对应类型的conut、sum、max、min、avg
+     * 获取对应类型的conut、sum、max、min、avg(总数、总和、最大最小平均值)
      */
     @Test
     public void test6() {
         DoubleSummaryStatistics collect = emps.stream()
                 .collect(Collectors.summarizingDouble(Emp3::getSalary));
         System.out.println(collect.getCount());
-        System.out.println(collect.getAverage());
         System.out.println(collect.getSum());
         System.out.println(collect.getMax());
         System.out.println(collect.getMin());
+        System.out.println(collect.getAverage());
     }
 
     /**
@@ -182,6 +183,25 @@ public class StreamTest6 {
      */
     @Test
     public void test7() {
+        //获取年龄为79的人的名字（主申人的名字）
+        String name = emps.stream()
+                .filter(emp3 -> emp3.getAge() == 798)
+                .map(Emp3::getName)
+                .collect(Collectors.joining());
+        if (!StringUtils.isEmpty(name)) {
+            System.out.println(name);
+        } else {
+            //假如没有匹配到，返回的是空串“”,因为Collectors.joining()方法内部是使用的StringBuilder
+            //并不会返回null，在后面equals时导致NPE
+            if (name.equals("test")) {
+                System.out.println("ok");
+            } else {
+                System.out.println("NO PEOPLE!");
+            }
+        }
+
+        System.out.println();
+
         //拼接
         /**
          * 张三唐三bbbaaa李四王五赵六
@@ -190,6 +210,9 @@ public class StreamTest6 {
                 .map(Emp3::getName)
                 .collect(Collectors.joining());
         System.out.println(collect);
+
+        System.out.println();
+
         //分隔符
         /**
          * 张三,唐三,bbb,aaa,李四,王五,赵六
@@ -198,6 +221,12 @@ public class StreamTest6 {
                 .map(Emp3::getName)
                 .collect(Collectors.joining(","));
         System.out.println(collect1);
+
+        String[] split = collect1.split(",");
+        System.out.println(Arrays.toString(split));
+
+        System.out.println();
+
         //分隔符以及前缀、后缀
         /**
          * ===张三,唐三,bbb,aaa,李四,王五,赵六===
@@ -206,5 +235,11 @@ public class StreamTest6 {
                 .map(Emp3::getName)
                 .collect(Collectors.joining(",", "===", "==="));
         System.out.println(collect2);
+    }
+
+    public static void main(String[] args) {
+        String s = "";
+        String[] split = s.split(",");
+        System.out.println(Arrays.toString(split));
     }
 }

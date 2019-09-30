@@ -9,10 +9,11 @@ public class T06_Future {
             TimeUnit.MILLISECONDS.sleep(500);
             return 1000;
         });
-
+        //new一个线程，将FutureTask作为参数传入（因为new Thread（）参数不支持Callable类型。）
         new Thread(task).start();
 
-        System.out.println(task.get());//阻塞,什么时候完成，拿到值才不再阻塞
+        //阻塞,什么时候完成，拿到值才不再阻塞
+        System.out.println(task.get());
 
         /*********************************************************************/
 

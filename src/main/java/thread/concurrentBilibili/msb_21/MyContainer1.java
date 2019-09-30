@@ -23,7 +23,7 @@ public class MyContainer1<T> {
      * while 基本上 会和wait进行搭配使用，而不是if
      * 理由：
      * 假如在本例中，最大容量MAX=10，如果两个生产者线程同时判断lists.size()==MAX时，
-     * 都进入了wait等待队列进行等待，这是消费者线程叫醒了生产者线程，假如其中一个醒了
+     * 都进入了wait等待队列进行等待，这时消费者线程叫醒了生产者线程，假如其中一个醒了
      * put一个元素之后，容器满了！
      * 这时候又叫醒了另外一个容器，由于wait醒了之后，会接着上次的地方继续往下执行，又因为
      * 使用的是if判断，所以它不会再次判断lists.size()==MAX，所以这时再往里put元素，就会
@@ -63,7 +63,7 @@ public class MyContainer1<T> {
     }
 
     public static void main(String[] args) {
-        MyContainer1<String> c = new MyContainer1<>();
+        MyContainer1<Object> c = new MyContainer1<>();
         //启动消费者线程
         for (int i = 0; i < 10; i++) {
             new Thread(() -> {

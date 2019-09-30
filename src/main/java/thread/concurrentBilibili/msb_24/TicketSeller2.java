@@ -23,6 +23,9 @@ public class TicketSeller2 {
                      * 还没有remove的时候，还有可能被B线程打断，然后B线程remove，那么当A线程
                      * 继续执行时就触发错误了。
                      *
+                     * 因为size方法执行完毕之后，锁就释放了，这时候其他线程就可以执行size方法，
+                     * 而上一个线程往下走的时候，另一个线程也往下走，这时候可能就出现问题了！！！
+                     *
                      * 当剩下最后一张票时，其中一个线程判断size>0，其它线程在中间这段代码执行时，
                      * 是有可能打断它的，然后remove，最后当那个线程再执行remove操作时，就触发了错误
                      * java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 0

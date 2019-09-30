@@ -171,7 +171,7 @@ public class test {
                 "                }\n" +
                 "            ],\n" +
                 "            \"applSeq\": 9255535,\n" +
-                "            \"ectrName\": \"长安信托个人汽车消费借款及抵押合同-盛京联贷版\",\n" +
+                "            \"ectrName\": \"个人测试个人汽车消费借款及抵押合同-测试联贷版\",\n" +
                 "            \"ectrDefCde\": \"00000011\"\n" +
                 "        }\n" +
                 "    ]\n" +
@@ -255,7 +255,7 @@ public class test {
                 "                }\n" +
                 "            ],\n" +
                 "            \"applSeq\": 9255535,\n" +
-                "            \"ectrName\": \"中航信托个人汽车消费合同\",\n" +
+                "            \"ectrName\": \"测试机构个人汽车消费合同\",\n" +
                 "            \"ectrDefCde\": \"00000011\"\n" +
                 "        },\n" +
                 "        {\n" +
@@ -286,7 +286,7 @@ public class test {
                 "                }\n" +
                 "            ],\n" +
                 "            \"applSeq\": 9255535,\n" +
-                "            \"ectrName\": \"长安信托个人汽车消费借款及抵押合同-盛京联贷版\",\n" +
+                "            \"ectrName\": \"个人测试个人汽车消费借款及抵押合同-盛京联贷版\",\n" +
                 "            \"ectrDefCde\": \"00000011\"\n" +
                 "        }\n" +
                 "    ]\n" +
@@ -398,7 +398,7 @@ public class test {
                 "                }\n" +
                 "            ],\n" +
                 "            \"applSeq\": 9255535,\n" +
-                "            \"ectrName\": \"中航信托个人汽车消费合同\",\n" +
+                "            \"ectrName\": \"测试机构个人汽车消费合同\",\n" +
                 "            \"ectrDefCde\": \"00000011\"\n" +
                 "        },\n" +
                 "        {\n" +
@@ -429,7 +429,7 @@ public class test {
                 "                }\n" +
                 "            ],\n" +
                 "            \"applSeq\": 9255535,\n" +
-                "            \"ectrName\": \"长安信托个人汽车消费借款及抵押合同-盛京联贷版\",\n" +
+                "            \"ectrName\": \"个人测试个人汽车消费借款及抵押合同-盛京联贷版\",\n" +
                 "            \"ectrDefCde\": \"00000011\"\n" +
                 "        }\n" +
                 "    ]\n" +
@@ -535,7 +535,7 @@ public class test {
      * "desc": "车辆价格"
      * }
      * ],
-     * "ectrName": "长安信托-九江借款抵押合同（无车架号）",
+     * "ectrName": "个人测试-九江借款抵押合同（无车架号）",
      * "ectrDefCde": "00000031"
      * }
      * ]
@@ -568,7 +568,7 @@ public class test {
         data2.add(data2Map3);
         data1Map.put("data", data2);
         data1Map.put("applSeq", "9274245");
-        data1Map.put("ectrName", "长安信托-九江借款抵押合同（无车架号）");
+        data1Map.put("ectrName", "个人测试-测试借款抵押合同（无车架号）");
         data1Map.put("ectrDefCde", "00000031");
         data1.add(data1Map);
         jsonResponse.setData(data1);

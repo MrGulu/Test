@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 工作窃取的线程池？底层使用ForkJoinPool实现。
  * <p>
- * 每个线程都维护自己的一个队列，当一个线程执行完自己队列的任务时，回到其他线程维护的
+ * 每个线程都维护自己的一个队列，当一个线程执行完自己队列的任务时，会到其他线程维护的
  * 队列中，偷任务来执行。主动找活干。
  */
 public class T11_WorkStealingPool {

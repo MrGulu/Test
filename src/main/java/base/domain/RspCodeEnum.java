@@ -3,13 +3,7 @@ package base.domain;
 
 import base.exception.IBussinessError;
 
-/**
- * @Description:
- * @author: gongbin
- * @date: 2018/4/23 18:29
- * @system name:    工作流引擎
- * @copyright: 长安新生（深圳）金融投资有限公司
- */
+
 public enum RspCodeEnum implements IBussinessError {
 
     /*

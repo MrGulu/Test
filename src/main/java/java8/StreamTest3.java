@@ -56,4 +56,18 @@ public class StreamTest3 {
                     }
                 }).forEach(System.out::println);
     }
+
+    public static void main(String[] args) {
+        String s = "aaa";
+        String s1 = new String("aaa");
+        System.out.println(s == s1);
+        /**
+         * Objects.equals方法中参数是两个object类型对象，
+         * 会调用第一个参数类型的equals，比如下面第一个，都是
+         * String类型时，会调用String类的equals方法；
+         * 第二个会调用Integer类的equals方法
+         */
+        System.out.println(Objects.equals(s, s1));
+        System.out.println(Objects.equals(123, s1));
+    }
 }

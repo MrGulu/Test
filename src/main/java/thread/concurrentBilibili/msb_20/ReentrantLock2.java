@@ -34,8 +34,11 @@ public class ReentrantLock2 {
     //如果想互斥，m2这个方法使用同一把锁就可以了
     void m2() {
         lock.lock();
-        System.out.println("m2……");
-        lock.unlock();
+        try {
+            System.out.println("m2……");
+        } finally {
+            lock.unlock();
+        }
     }
 
     public static void main(String[] args) {

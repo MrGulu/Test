@@ -85,7 +85,7 @@ public class Test {
                 "            \"dealerAcctno\": \"11014518143007\",\n" +
                 "            \"userName\": \"贱贱专用\",\n" +
                 "            \"idNo\": \"110221198001010011\",\n" +
-                "            \"lanchBank\": \"微众银行\",\n" +
+                "            \"lanchBank\": \"测试银行\",\n" +
                 "            \"brand\": \"别克\",\n" +
                 "            \"loanAmount\": 6283\n" +
                 "        },\n" +

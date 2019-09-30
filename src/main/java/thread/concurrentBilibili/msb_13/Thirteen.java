@@ -19,6 +19,12 @@ public class Thirteen {
     synchronized void m() {
         for (int i = 0; i < 10000; i++) {
             //++操作不保证原子性
+            /**
+             * ++操作其实分为三步：
+             * 1.获取count值
+             * 2.对count +1操作
+             * 3.写回最新count值
+             */
             count++;
         }
     }

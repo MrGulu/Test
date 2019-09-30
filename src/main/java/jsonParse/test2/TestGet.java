@@ -14,14 +14,14 @@ public class TestGet {
                 "    \"data\": {\n" +
                 "        \"loanMsg\": {\n" +
                 "            \"models\": \"别克Electra-3.8-AT\",\n" +
-                "            \"dealerName\": \"北京恒尚宇彤商贸有限公司\",\n" +
+                "            \"dealerName\": \"吧啦吧啦有限公司\",\n" +
                 "            \"address\": \"北京市北京市昌平区龙德广场\",\n" +
                 "            \"intrate\": 0.125,\n" +
                 "            \"aprvTerm\": \"12\",\n" +
                 "            \"dealerAcctno\": \"11014518143007\",\n" +
                 "            \"userName\": \"贱贱专用\",\n" +
                 "            \"idNo\": \"110221198001010011\",\n" +
-                "            \"lanchBank\": \"微众银行\",\n" +
+                "            \"lanchBank\": \"测试银行\",\n" +
                 "            \"brand\": \"别克\",\n" +
                 "            \"loanAmount\": 6283\n" +
                 "        },\n" +

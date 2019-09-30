@@ -53,6 +53,12 @@ public class MyContainer3 {
                     System.out.println("add " + i);
                     if (c.size() == 5) {
                         lock.notify();
+                        //如果想到了5，直接让t2结束，那么这里t1在notify之后，需要把自己已经持有的锁释放。
+//                        try {
+//                            lock.wait();
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
                     }
                     try {
                         TimeUnit.SECONDS.sleep(1);

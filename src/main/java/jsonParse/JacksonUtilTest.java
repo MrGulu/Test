@@ -82,7 +82,7 @@ public class JacksonUtilTest {
                 "\t\t\t\t\"identNo\": \"370828199202261626\",\n" +
                 "\t\t\t\t\"signStatus\": \"4\",\n" +
                 "\t\t\t\t\"econtractCde\": null,\n" +
-                "\t\t\t\t\"econtractName\": \"长安信托个人汽车消费借款及抵押合同-独资版\",\n" +
+                "\t\t\t\t\"econtractName\": \"个人测试个人汽车消费借款及抵押合同-独资版\",\n" +
                 "\t\t\t\t\"econtractDefCde\": null,\n" +
                 "\t\t\t\t\"ectrDefCde\": \"00000009\",\n" +
                 "\t\t\t\t\"econtractUrl\": \"http://openapi.bestsign.info:80/fe/intf/v2/#/previewSign?developerId=1841170298758496808&rtick=1560843123651978&signType=token&sign=eyJkZXZlbG9wZXJJZCI6IjE4NDExNzAyOTg3NTg0OTY4MDgiLCJjYXRhbG9nSWQiOiI1OTEyMDczNzcyMzExNTExNzUzIiwiY29udHJhY3RJZCI6IiIsImV4cGlyZUF0IjoiMTU2MTQ0NzkyMyIsImFjY291bnQiOiI3NDAyMDk5NyJ9LjE1NjA4NDMxMjM2NTAyMTkz.51551b22fdf938d6e3a07e0588026cda&catalogId=5912073772311511753&signerAccount=74020997&dpi=240&sid=\",\n" +
@@ -93,7 +93,7 @@ public class JacksonUtilTest {
                 "\t\t\t\t\"identNo\": \"370828199202261626\",\n" +
                 "\t\t\t\t\"signStatus\": \"4\",\n" +
                 "\t\t\t\t\"econtractCde\": null,\n" +
-                "\t\t\t\t\"econtractName\": \"长安信托-委托扣款授权书\",\n" +
+                "\t\t\t\t\"econtractName\": \"个人测试-委托扣款授权书\",\n" +
                 "\t\t\t\t\"econtractDefCde\": null,\n" +
                 "\t\t\t\t\"ectrDefCde\": \"00000018\",\n" +
                 "\t\t\t\t\"econtractUrl\": \"http://openapi.bestsign.info:80/fe/intf/v2/#/previewSign?developerId=1841170298758496808&rtick=1560843123862845&signType=token&sign=eyJkZXZlbG9wZXJJZCI6IjE4NDExNzAyOTg3NTg0OTY4MDgiLCJjYXRhbG9nSWQiOiIyNjcwMDUyMzAyNjg2Njc0OTMiLCJjb250cmFjdElkIjoiIiwiZXhwaXJlQXQiOiIxNTYxNDQ3OTIzIiwiYWNjb3VudCI6Ijc0MDIwOTk3In0uMTU2MDg0MzEyMzg2MjEyMDE_.8932fcde7ed3727e46934b477c612de0&catalogId=267005230268667493&signerAccount=74020997&dpi=240&sid=\",\n" +
@@ -111,7 +111,7 @@ public class JacksonUtilTest {
                 "\t\t\t\t\"identNo\": \"370283199501114310\",\n" +
                 "\t\t\t\t\"signStatus\": \"4\",\n" +
                 "\t\t\t\t\"econtractCde\": null,\n" +
-                "\t\t\t\t\"econtractName\": \"长安信托个人汽车消费借款及抵押合同-独资版\",\n" +
+                "\t\t\t\t\"econtractName\": \"个人测试个人汽车消费借款及抵押合同-独资版\",\n" +
                 "\t\t\t\t\"econtractDefCde\": null,\n" +
                 "\t\t\t\t\"ectrDefCde\": \"00000009\",\n" +
                 "\t\t\t\t\"econtractUrl\": \"http://openapi.bestsign.info:80/fe/intf/v2/#/previewSign?developerId=1841170298758496808&rtick=1560843147911432&signType=token&sign=eyJkZXZlbG9wZXJJZCI6IjE4NDExNzAyOTg3NTg0OTY4MDgiLCJjYXRhbG9nSWQiOiI1OTEyMDczNzcyMzExNTExNzUzIiwiY29udHJhY3RJZCI6IiIsImV4cGlyZUF0IjoiMTU2MTQ0Nzk0NyIsImFjY291bnQiOiI3NDAyMDk5NyJ9LjE1NjA4NDMxNDc5MTE1NDEx.0a0d73b4907fd3827fe1294e0e01f249&catalogId=5912073772311511753&signerAccount=74020997&dpi=240&sid=\",\n" +
@@ -129,7 +129,7 @@ public class JacksonUtilTest {
                 "\t\t\t\t\"identNo\": \"370283199501114310\",\n" +
                 "\t\t\t\t\"signStatus\": \"4\",\n" +
                 "\t\t\t\t\"econtractCde\": null,\n" +
-                "\t\t\t\t\"econtractName\": \"长安信托个人汽车消费借款及抵押合同-独资版\",\n" +
+                "\t\t\t\t\"econtractName\": \"个人测试个人汽车消费借款及抵押合同-独资版\",\n" +
                 "\t\t\t\t\"econtractDefCde\": null,\n" +
                 "\t\t\t\t\"ectrDefCde\": \"00000009\",\n" +
                 "\t\t\t\t\"econtractUrl\": \"http://openapi.bestsign.info:80/fe/intf/v2/#/previewSign?developerId=1841170298758496808&rtick=1560843147911432&signType=token&sign=eyJkZXZlbG9wZXJJZCI6IjE4NDExNzAyOTg3NTg0OTY4MDgiLCJjYXRhbG9nSWQiOiI1OTEyMDczNzcyMzExNTExNzUzIiwiY29udHJhY3RJZCI6IiIsImV4cGlyZUF0IjoiMTU2MTQ0Nzk0NyIsImFjY291bnQiOiI3NDAyMDk5NyJ9LjE1NjA4NDMxNDc5MTE1NDEx.0a0d73b4907fd3827fe1294e0e01f249&catalogId=5912073772311511753&signerAccount=74020997&dpi=240&sid=\",\n" +

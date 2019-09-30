@@ -46,8 +46,14 @@ public class DateUtils
     return getCurrentFormatDate("yyyy-MM");
   }
 
-  public static int cutTwoDateToDay(Date a, Date b)
-  {
+  /**
+   * 两个日期相差多少天
+   *
+   * @param a
+   * @param b
+   * @return
+   */
+  public static int cutTwoDateToDay(Date a, Date b) {
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     Calendar calendar = Calendar.getInstance();
     int theday = 0;

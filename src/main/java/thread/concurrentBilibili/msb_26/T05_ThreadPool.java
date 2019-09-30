@@ -27,7 +27,7 @@ public class T05_ThreadPool {
          */
         System.out.println(service);
 
-        //正常的关闭，会等会有任务都执行完才会彻底关闭，所以isTerminated为false；isShutdown为true
+        //正常的关闭，会等所有任务都执行完才会彻底关闭，所以isTerminated为false；isShutdown为true
         //还有一种方法，service.shutdownNow();不管任务是否都执行完，直接全部关闭。
         service.shutdown();
         /**

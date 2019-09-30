@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Fifteen {
     private AtomicInteger count = new AtomicInteger(0);
 
-    synchronized void m() {
+    /*synchronized*/ void m() {
         for (int i = 0; i < 10000; i++) {
             /**
              * 内部实现是用很底层的方法实现的。

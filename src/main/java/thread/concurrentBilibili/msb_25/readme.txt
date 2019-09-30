@@ -21,11 +21,13 @@ Collections.synchronizedXXX
 CopyOnWriteList(写少读多)
 
 在高并发的情况下，可以使用两种队列
+(Queue、BlockingQueue、TransferQueue为接口；剩下的都是实现类，实现类都继承AbstractQueue抽象类)
 Queue
-    ConcurrentLinkedQueue（内部加锁）
+        ConcurrentLinkedQueue（内部加锁）
     BlockingQueue（阻塞队列（满了等待，空了等待））
         LinkedBlockingQueue（无界队列，用的很多）
         ArrayBlockingQueue（有界队列，队列中元素数是一定的；到了线程池中，里面一个个放的就是任务）
-        TransferQueue（消息直接给消费者消费）
         SynchronousQueue（一种特殊的TransferQueue，容量为0）
-    DelayQueue（执行定时任务）
+        DelayQueue（执行定时任务）
+    TransferQueue（消息直接给消费者消费）
+        LinkedTransferQueue

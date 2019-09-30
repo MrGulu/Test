@@ -13,11 +13,11 @@ import java.util.Optional;
  * allMatch-检查是否匹配所有元素
  * anyMatch-检查是否至少匹配一个元素
  * noneMatch-检查是否没有匹配所有元素
- * findFirst-返回第一个元素
- * findAny-返回第一个元素
+ * findFirst-返回第一个元素（返回Optional<T>）
+ * findAny-返回任意一个元素（返回Optional<T>）
  * count-返回流中元素的总个数
- * max-返回流中最大值
- * min-返回流中最小值
+ * max-返回流中最大值(需要传入比较器，返回Optional<T>)
+ * min-返回流中最小值(需要传入比较器，返回Optional<T>)
  */
 public class StreamTest4 {
 
@@ -75,6 +75,11 @@ public class StreamTest4 {
     public void test4() {
         Optional<Emp3> firstEmp3 = emps.stream()
                 .filter(emp3 -> emp3.getStatus().equals(Emp3.Status.FREE))
+                /**
+                 * Comparator.comparingDouble(Emp3::getSalary)
+                 * 和(e1,e2) -> e1.getSalary().compareTo(e2.getSalary())
+                 * 最后都是调用了Double.compare(e1.getSalary(),e2.getSalary())
+                 */
                 /*下面三种方式自定义排序*/
 //                .sorted((e1,e2) -> e1.getSalary().compareTo(e2.getSalary()))
 //                .sorted((e1,e2) -> Double.compare(e1.getSalary(),e2.getSalary()))

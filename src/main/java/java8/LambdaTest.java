@@ -23,7 +23,7 @@ public class LambdaTest {
         LambdaTest lambdaTest = new LambdaTest();
         lambdaTest.java8Test();
         Emp emp = new Emp();
-        emp.toString();
+        log.info(emp.toString());
     }
 
     public void java8Test() {
@@ -55,7 +55,7 @@ public class LambdaTest {
      * 消费型接口 Consumer<T>   有参无返               accept(T t);
      * 供给型接口 Supplier<T>   有返无参               T get();
      * 函数型接口 Function<T,R> 有参有返               R apply(T t);
-     * 断言型接口 Predicate<T>  有参有返，返boolean     test(T t)
+     * 断言型接口 Predicate<T>  有参有返，返boolean     test(T t);
      */
 
     /**
@@ -119,11 +119,11 @@ public class LambdaTest {
      * 暂时有问题
      * 20190715记录：
      *  已解决：
-     *      发生原因：调用Arrays.asList()生产的List的add、remove方法时报异常，这是由Arrays.asList()
-     *          返回的是Arrays的内部类ArrayList， 而不是java.util.ArrayList。
+     *      发生原因：调用Arrays.asList();生成的List的add、remove方法时报异常，这是因为
+     *          Arrays.asList()返回的是Arrays的内部类ArrayList， 而不是java.util.ArrayList。
      *          Arrays的内部类ArrayList和java.util.ArrayList都是继承AbstractList，
      *          remove、add等方法AbstractList中是默认throw UnsupportedOperationException而且不作任何操作。
-     *          java.util.ArrayList重新了这些方法而Arrays的内部类ArrayList没有重新，所以会抛出异常。
+     *          java.util.ArrayList重写了这些方法而Arrays的内部类ArrayList没有重写，所以会抛出异常。
      *      解决方法：使用new ArrayList<>(Collection<? extends E> c)，将其转化为ArrayList。
      */
     @Test
