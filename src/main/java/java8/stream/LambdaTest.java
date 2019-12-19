@@ -1,4 +1,4 @@
-package java8;
+package java8.stream;
 
 import domain.Emp;
 import domain.Emp3;

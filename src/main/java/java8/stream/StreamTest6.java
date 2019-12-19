@@ -1,4 +1,4 @@
-package java8;
+package java8.stream;
 
 import com.alibaba.fastjson.JSON;
 import domain.Emp3;
