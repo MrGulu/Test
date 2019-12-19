@@ -38,9 +38,13 @@ public class MapReflect {
 
     private static final Logger logger = LoggerFactory.getLogger(MapReflect.class);
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public static <T> T map2Obj(Map<String, Object> map, Class<T> clazz) {
         if (Objects.isNull(map) || map.isEmpty()) {
             return null;
+        }
+        if (clazz == null) {
+            throw new IllegalArgumentException("clazz is null");
         }
         T obj = null;
         try {
