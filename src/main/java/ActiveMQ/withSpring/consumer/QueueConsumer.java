@@ -1,11 +1,13 @@
 package ActiveMQ.withSpring.consumer;
 
 import ActiveMQ.withSpring.sender.QueueSender;
-import org.apache.activemq.command.ActiveMQTextMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.jms.*;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageListener;
+import javax.jms.ObjectMessage;
 
 @Component("queueConsumer")
 public class QueueConsumer implements MessageListener {
