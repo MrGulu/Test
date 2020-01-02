@@ -2,6 +2,7 @@ package designPatterns.singleton.enumSingleton;
 
 /**
  * 枚举实现安全单例模式
+ * @author tangwenlong
  */
 public enum EnumSingleton {
     /**
@@ -30,7 +31,6 @@ public enum EnumSingleton {
         System.out.println(user2);
         //true，说明同一个对象
         System.out.println(user == user2);
-
     }
 }
 
