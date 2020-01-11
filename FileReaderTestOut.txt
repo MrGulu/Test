@@ -73,3 +73,30 @@
 
 
 
+Hello World!!!
+
+你好，世界！~
+【宝付】
+
+宝付单笔代扣 及 查询接口：https://vgw.baofoo.com/cutpayment/api/backTransRequest   /apihub-web/boofoo/cutPayment
+
+宝付批量代扣 及 查询接口：https://vgw.baofoo.com/batchpay/api/batchTransRequest    /apihub-web/boofoo/batchpay
+
+宝付预绑卡接口：https://vgw.baofoo.com/cutpayment/protocol/backTransRequest			/apihub-web/boofoo/protocol
+
+宝付确认绑卡接口：https://vgw.baofoo.com/cutpayment/protocol/backTransRequest		/apihub-web/boofoo/protocol
+
+宝付协议单笔代扣 及 查询接口：https://vgw.baofoo.com/cutpayment/protocol/backTransRequest 	/apihub-web/boofoo/protocol
+
+宝付协议批量代扣 及 查询接口：https://vgw.baofoo.com/batchpay/api/batchTransRequest    /apihub-web/boofoo/batchpay
+
+【通联】
+
+通联单笔代扣 及 查询接口：https://113.108.182.3/aipg/ProcessServlet
+
+通联批量代扣 及 查询接口：https://113.108.182.3/aipg/ProcessServlet
+
+通联协议单笔代扣 及 查询接口：https://113.108.182.3/aipg/quickpay
+
+
+

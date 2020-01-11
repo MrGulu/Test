@@ -1,9 +1,8 @@
-package File;
+package io;
 
 import org.junit.Test;
 
 import java.io.*;
-import java.nio.channels.FileLockInterruptionException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -33,7 +32,7 @@ public class FileTest {
 
         fileTest.fileNameList("E:\\");
 //        fileTest.listFiles("D:\\workspace\\BigDecimalAboutRound\\");
-//        fileTest.listFiles("D:"+File.separator+"workspace"+File.separator+"BigDecimalAboutRound");
+//        fileTest.listFiles("D:"+io.separator+"workspace"+io.separator+"BigDecimalAboutRound");
         /**
          * 与系统有关的路径分隔符。此字段被初始为包含系统属性 path.separator 值的第一个字符。
          * 此字符用于分隔以路径列表 形式给定的文件序列中的文件名。在 UNIX 系统上，此字段为 ':'；
@@ -54,7 +53,7 @@ public class FileTest {
         File file = new File(s);
         String[] filelist = file.list();
         /*只是名字，不可以操作，而下面函数的listFiles，
-        是相当于在那个路径下每一个文件都执行File file = new File("...");方法；产生的是file对象，可以操作的。*/
+        是相当于在那个路径下每一个文件都执行File file = new io("...");方法；产生的是file对象，可以操作的。*/
         System.out.println("获取指定目录下的所有文件或者文件夹的名称数组");
         for (String ss :
                 filelist) {
@@ -131,13 +130,13 @@ public class FileTest {
     }
 
     /**
-     * 1.当路径存在，文件不存在时，File file = new File(String path)不会报错；
-     * 2.当路径不存在时，File file = new File(String path)会报错：文件路径不存在（IOException）
+     * 1.当路径存在，文件不存在时，io file = new io(String path)不会报错；
+     * 2.当路径不存在时，io file = new io(String path)会报错：文件路径不存在（IOException）
      * 2.当路径不存在时，如果文件上面只有一级目录不存在，使用File.mkdir()方法
      * 3.当路径不存在时，如果文件上面有多级目录不存在，使用File.mkdirs()方法
      * 4.当构建输入输出流对象时，需要声明FileNotFoundException，这时如果之前在
-     *   File file = new File(String path)时，并未判断是否存在，然后创建目录
-     *   或文件时，InputStream in = new FileInputStream(File file)就会报错
+     *   io file = new io(String path)时，并未判断是否存在，然后创建目录
+     *   或文件时，InputStream in = new FileInputStream(io file)就会报错
      *   ：FileNotFoundException
 
      * @throws IOException
