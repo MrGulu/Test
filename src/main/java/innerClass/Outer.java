@@ -38,6 +38,7 @@ public class Outer {
 
     private static final String STATIC_FIELD = "STATIC_FIELD";
 
+
     private String outName = "outName";
 
     public String getOutName() {
@@ -113,6 +114,15 @@ public class Outer {
         log.info(inner.get());
 
         Outer.staticInner staticInner = new Outer.staticInner();
+        log.info(staticInner.get());
+        System.out.println("***********************************************************");
+        Outer outer = new Outer();
+        outer.setOutName("test");
+
+        inner = outer.new inner();
+        log.info(inner.get());
+
+        staticInner = new Outer.staticInner();
         log.info(staticInner.get());
     }
 }
