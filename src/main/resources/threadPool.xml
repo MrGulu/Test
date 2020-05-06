@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--利用google的ThreadFactoryBuilder构建ThreadFactory，指定线程创建名称等配置-->
+    <bean id="threadFactoryBuilder" class="com.google.common.util.concurrent.ThreadFactoryBuilder">
+        <property name="nameFormat" value="demo-xml-pool-%d"/>
+    </bean>
+
+    <!-- 异步线程池 -->
+    <bean id="threadPool" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <!-- 核心线程数  -->
+        <property name="corePoolSize" value="5"/>
+        <!-- 最大线程数 -->
+        <property name="maxPoolSize" value="50"/>
+        <!-- 队列最大长度 >=mainExecutor.maxSize -->
+        <property name="queueCapacity" value="100"/>
+        <!-- 线程池维护线程所允许的空闲时间 -->
+        <property name="keepAliveSeconds" value="300"/>
+        <!-- 是否允许核心线程超市关闭 -->
+        <property name="allowCoreThreadTimeOut" value="true"/>
+        <!-- 指定ThreadFactory-->
+        <property name="threadFactory">
+            <bean factory-bean="threadFactoryBuilder" factory-method="build"/>
+        </property>
+        <!-- 线程池对拒绝任务(无线程可用)的处理策略 -->
+        <property name="rejectedExecutionHandler">
+            <bean class="java.util.concurrent.ThreadPoolExecutor$AbortPolicy"/>
+        </property>
+    </bean>
+</beans>
