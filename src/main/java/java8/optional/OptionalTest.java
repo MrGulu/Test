@@ -17,7 +17,7 @@ public class OptionalTest {
 
     private final boolean b;
 
-    private OptionalTest() {
+    public OptionalTest() {
         this.a = 1;
         this.b = true;
     }
@@ -79,7 +79,7 @@ public class OptionalTest {
         Optional<String> optional = Optional.ofNullable(s);
         return optional.orElseGet(() -> {
             String s1 = "hello";
-            return s1 + "world";
+            return s1 + " world";
         });
     }
 
@@ -92,11 +92,11 @@ public class OptionalTest {
     public void test4() {
         Student domain = new Student();
         domain.setAge(18);
-        nullTest(domain);
+        nullTest(null);
     }
 
     public static void nullTest(Student domain) {
-        String name = "";
+        String name = "default";
         if (domain != null) {
             if (domain.getName() != null) {
                 name = domain.getName();
@@ -109,7 +109,10 @@ public class OptionalTest {
          * 一个empty的opt，这样再调用orElse就没问题.
          * 下面效果同上面，但是会更加简洁，一行代码就代替了两个if嵌套的判断！
          */
-        name = Optional.ofNullable(domain).map(Student::getName).orElse("");
+        name = Optional
+                .ofNullable(domain)
+                .map(Student::getName)
+                .orElse("-------");
         System.out.println(name);
     }
 

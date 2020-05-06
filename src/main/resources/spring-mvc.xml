@@ -11,7 +11,7 @@
        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
     <!-- 扫描web相关的bean @controller注解  扫描@service的注解在spring-mybatis.xml中-->
-    <context:component-scan base-package="ActiveMQ.withSpring"/>
+    <context:component-scan base-package="activeMQ.withSpring"/>
 
 
      <!--开启SpringMVC注解模式 （处理器映射器和处理器适配器的综合体）-->

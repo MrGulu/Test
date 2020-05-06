@@ -15,7 +15,7 @@
 
 	<!-- 扫描包 -->
 	<!--尤其他妈的注意这个地方，没扫描导致下面找消费者ref找不到！！！shit-->
-	<context:component-scan base-package="ActiveMQ" />
+	<context:component-scan base-package="activeMQ"/>
 
 	<!--&lt;!&ndash; ActiveMQ 连接工厂-->
 	<amq:connectionFactory id="amqConnectionFactory"
