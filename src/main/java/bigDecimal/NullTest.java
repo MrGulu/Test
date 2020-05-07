@@ -20,7 +20,7 @@ public class NullTest {
     }
 
     @Data
-    class ClassTest {
+    private class ClassTest {
         private byte aByte;
         private short aShort;
         private int anInt;

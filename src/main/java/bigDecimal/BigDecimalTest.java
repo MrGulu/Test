@@ -139,7 +139,7 @@ public class BigDecimalTest {
         System.out.println("通过double构造的BigDecimal值：" + val2);
         System.out.println("通过double构造后multiply的值：" + bigValue);
         System.out.println("intValue直接丢掉小数部分:     " + bigValue1);
-        System.out.println("doubleValue:               " + bigValue2);
+        System.out.println("doubleValue保留一位小数:     " + bigValue2);
         System.out.println("通过字符串小数：              " + bigValue3);
         System.out.println("通过字符串小数且指定精度：      " + bigValue4);
         System.out.println("都通过int构造无小数先乘后除：   " + bigValue5);
