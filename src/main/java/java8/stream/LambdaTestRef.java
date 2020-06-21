@@ -94,7 +94,7 @@ public class LambdaTestRef {
         Supplier<Emp3> supplier1 = Emp3::new;
         System.out.println(supplier1.get());
 
-        Function<Integer, Emp3> function = x -> new Emp3(18);
+        Function<Integer, Emp3> function = x -> new Emp3(x);
         //自动匹配无参构造器（因为Function抽象方法R apply(T t)是有一个参数的！！！）
         Function<Integer, Emp3> function1 = Emp3::new;
     }
