@@ -45,12 +45,24 @@ public class LambdaTest {
     private static String testObjectsRequireNonNull(String t) {
         return Objects.requireNonNull(t, () -> "error");
     }
-
+    /*******************************************************************************************************/
     /**
-     * 左右遇一括号省
-     * 左侧推断类型省
+     * Lambda 表达式的基础语法：Java8中引入了一个新的操作符 "->" 该操作符称为箭头操作符或Lambda操作符
+     * 箭头操作符将Lambda表达式拆分成两部分：
+     * () -> {}
+     * 左侧：Lambda 表达式的参数列表
+     * 右侧：Lambda 表达式中所需执行的功能，即Lambda体
+     *
+     * 说白了就是用Lambda实现接口，作为其实现类 放到 形参列表中
+     * 但是要注意Lambda实现的接口必须是函数式接口（@FunctionalInterface注解修饰），只能有一个抽象方法（java8中的默认方法除外）
+     */
+    /**
+     * 左右遇一括号省（左侧只有一个参数，可以省略();右侧方法体只有一条语句，{}和return都可以省略）
+     * 左侧推断类型省（Lambda表达式的参数列表的数据类型可以省略不写）
      * 能省则省
      */
+
+    /******************************************************************************************************************/
     /**
      * 消费型接口 Consumer<T>   有参无返               accept(T t);
      * 供给型接口 Supplier<T>   有返无参               T get();
@@ -58,6 +70,7 @@ public class LambdaTest {
      * 断言型接口 Predicate<T>  有参有返，返boolean     test(T t);
      */
 
+    /******************************************************************************************************************/
     /**
      * 测试Consumer<T> 消费型接口
      */
@@ -92,9 +105,9 @@ public class LambdaTest {
     private static void test1Static(Map<String, Object> map, Consumer<Map> consumer) {
         consumer.accept(map);
     }
-
+    /******************************************************************************************************************/
     /**
-     * 测试Supplier<T> 消费型接口
+     * 测试Supplier<T> 供给型接口
      */
     @Test
     public void test2() {
@@ -114,7 +127,7 @@ public class LambdaTest {
         }
         return list;
     }
-
+    /******************************************************************************************************************/
     /**
      * 暂时有问题
      * 20190715记录：
@@ -125,6 +138,9 @@ public class LambdaTest {
      *          remove、add等方法AbstractList中是默认throw UnsupportedOperationException而且不作任何操作。
      *          java.util.ArrayList重写了这些方法而Arrays的内部类ArrayList没有重写，所以会抛出异常。
      *      解决方法：使用new ArrayList<>(Collection<? extends E> c)，将其转化为ArrayList。
+     */
+    /**
+     * 测试Function<T,R> 函数型接口
      */
     @Test
     @SuppressWarnings("all")
@@ -147,7 +163,7 @@ public class LambdaTest {
     private static List<Emp3> test3Static(List<Emp3> list, Function<List<Emp3>, List<Emp3>> function) {
         return function.apply(list);
     }
-
+    /******************************************************************************************************************/
     /**
      * 测试Predicate<T> 断言型接口
      */
@@ -169,4 +185,5 @@ public class LambdaTest {
     private static boolean test4Static(Emp3 emp3, Predicate<Emp3> predicate) {
         return predicate.test(emp3);
     }
+    /******************************************************************************************************************/
 }

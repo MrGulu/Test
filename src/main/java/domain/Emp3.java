@@ -18,6 +18,14 @@ public class Emp3 {
     private Double salary;
     private Status status;
 
+    public Emp3() {
+
+    }
+
+    public Emp3(Integer age) {
+        this.age = age;
+    }
+
     @SuppressWarnings("all")
     public enum Status {
         NONE,
