@@ -45,7 +45,7 @@ public class StreamTest2 {
                 }).forEach(System.out::println);
         /**
          * 我们发现Function 比 Consumer 多了一个 return。
-         * 这也就是peek 与 map的区别了。
+         * 这也就是map 与 peek的区别了。
          * 总结：peek接收一个没有返回值的λ表达式，可以做一些输出，外部处理等。
          * map接收一个有返回值的λ表达式，之后Stream的泛型类型将转换为map参数
          * λ表达式返回的类型，并且还可以进行下一步的操作。而forEach是作为终止条件的，
@@ -54,6 +54,12 @@ public class StreamTest2 {
         /**
          * 还有一个疑问就是2已经形成一个新的流，现在3再通过emps.stream获取的流依然是2中处理过的流，
          *是缓存吗？还是什么原因呢
+         *
+         * 解答：
+         *   2中已经将list中的对象拿了出来重新赋值了salary，堆内存中的对象属性已经被修改了。
+         * 到了3这里拿到的是已经经过2修改之后的对象，所以才会输出2个。
+         *   并且要注意的是，debug时通过查看stream流api的过程时，emps.stream()显示的其实是已经
+         * 中间操作过后的样子。例如下面的salary+1000.
          */
         System.out.println("2可以简化--------------------------");
         emps.stream()

@@ -27,25 +27,31 @@ public class StreamTest6 {
 
     @Test
     public void test1() {
+        /**
+         * 转换成List
+         */
         List<String> stringList = emps.stream()
                 .map(Emp3::getName)
                 .collect(Collectors.toList());
         stringList.forEach(System.out::println);
-
         System.out.println("-------------------------");
 
+        /**
+         * 转换成Set
+         */
         Set<String> stringSet = emps.stream()
                 .map(Emp3::getName)
                 .collect(Collectors.toSet());
         stringSet.forEach(System.out::println);
-
         System.out.println("-------------------------");
 
+        /**
+         * 转换成TreeSet
+         */
         TreeSet<String> stringTreeSet = emps.stream()
                 .map(Emp3::getName)
                 .collect(Collectors.toCollection(TreeSet::new));
         stringTreeSet.forEach(System.out::println);
-
         System.out.println("-------------------------");
     }
 
@@ -71,6 +77,10 @@ public class StreamTest6 {
 
         Long cLong = (long) emps.size();
         System.out.println(aLong);
+        System.out.println(bLong);
+        System.out.println(cLong);
+
+        System.out.println("**************************************************************");
 
         //平均值
         /**
@@ -81,28 +91,59 @@ public class StreamTest6 {
                 .collect(Collectors.averagingDouble(Emp3::getSalary));
         System.out.println(avg);
 
+        System.out.println("**************************************************************");
+
         //总和
         Double sum = emps.stream()
                 .collect(Collectors.summingDouble(Emp3::getSalary));
-
+        /**
+         * 或者使用常规方式map后取sum.  要注意的是mapToDouble方法返回的是DoubleStream，sum方法为其独有的。
+         * */
         Double sum1 = emps.stream().mapToDouble(Emp3::getSalary).sum();
         System.out.println(sum);
+        System.out.println(sum1);
+
+        System.out.println("**************************************************************");
 
         //最大值的员工
+        /**
+         * maxBy取出最大值的一条记录
+         */
         Optional<Emp3> max = emps.stream()
                 .collect(Collectors.maxBy(Comparator.comparingDouble(Emp3::getSalary)));
 
         Optional<Emp3> max1 = emps.stream().max(Comparator.comparingDouble(Emp3::getSalary));
         max.ifPresent(System.out::println);
+        max1.ifPresent(System.out::println);
+
+        System.out.println("**************************************************************");
 
         //最小值的工资
+        /**
+         * 先用map将stream流中的元素变成存储salary的流，然后在新流中调用minBy，也就相当于从整个流中取出了最小的一条记录。
+         * 而上面取最大值一条记录的时候，因为没有调用map方法，所以流中存储的一个个元素仍然是实体类Emp3，所以maxBy取出的就是最大的一条记录。
+         *
+         * 总结：maxBy和minBy 以及 max和min 取出的都是按照传入的比较器比较之后的 流中存储的 最大或最小的 一条记录。
+         *      其中使用.collect(Collectors.maxBy())方法可以与.max()相互替换。
+         *
+         *      取实体元素的最大最小，下面两个等价：
+         *      .collect(Collectors.maxBy(Comparator.comparingDouble(Emp3::getSalary)))
+         *      .max(Comparator.comparingDouble(Emp3::getSalary))
+         *
+         *      取实体元素中的某一列元素的最大最小，下面两个等价：
+         *      .map(Emp3::getSalary).collect(Collectors.minBy(Double::compareTo))
+         *      .map(Emp3::getSalary).min(Double::compareTo)
+         */
         Optional<Double> min = emps.stream()
                 .map(Emp3::getSalary)
                 .collect(Collectors.minBy(Double::compareTo));
 
         Optional<Double> min1 = emps.stream()
-                .map(Emp3::getSalary).min(Double::compareTo);
+                .map(Emp3::getSalary)
+                .min(Double::compareTo);
         min.ifPresent(System.out::println);
+        min1.ifPresent(System.out::println);
+        System.out.println("**************************************************************");
     }
 
     /**
@@ -164,6 +205,7 @@ public class StreamTest6 {
 
     /**
      *  总结获取各种结果summarizingDouble……
+     * 是取的某一列来进行分析。
      * 对于int、double、long作了特殊处理.
      * 获取对应类型的conut、sum、max、min、avg(总数、总和、最大最小平均值)
      */
@@ -183,7 +225,7 @@ public class StreamTest6 {
      */
     @Test
     public void test7() {
-        //获取年龄为79的人的名字（主申人的名字）
+        //获取年龄为798的人的名字（主申人的名字）
         String name = emps.stream()
                 .filter(emp3 -> emp3.getAge() == 798)
                 .map(Emp3::getName)

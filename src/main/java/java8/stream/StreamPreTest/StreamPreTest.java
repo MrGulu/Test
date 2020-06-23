@@ -38,5 +38,6 @@ public class StreamPreTest {
         Stream<Integer> stream4 = Stream.iterate(0, x -> x + 1);
         /*4.1 生成*/
         Stream<Double> stream5 = Stream.generate(Math::random);
+        stream5.forEach(System.out::println);
     }
 }

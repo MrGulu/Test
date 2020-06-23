@@ -149,6 +149,7 @@ public class LambdaTest {
                 new Emp3("李四", 19, 6666.66),
                 new Emp3("王五", 20, 7777.77),
                 new Emp3("赵六", 21, 8888.88));
+        //之前讲到的倒序循环删除list中的元素
         List<Emp3> list = test3Static(new ArrayList<>(paramList), x -> {
             for (int i = x.size() - 1; i > 0; i--) {
                 if (x.get(i).getSalary() <= 7777.77) {

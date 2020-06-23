@@ -30,6 +30,8 @@ public class StreamTest3 {
      * 自然排序
      * 比如下面是String，它是实现了Comparable<String>接口，所以按照的就是
      * 重写的public int compare(String s1, String s2) 方法。
+     * （比较的是每个字母的ASCII码，例如下例中a 97，A 65，所以A排在a前面。）
+     *
      * 还有比如Integer也是实现了这个接口，重写了compare方法。
      */
     @Test

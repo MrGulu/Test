@@ -94,6 +94,8 @@ public class StreamTest4 {
     }
 
     /**
+     * Optional<T> findAny()
+     *
      * emps.parallelStream()是采用并行流的方式；
      * 如果emps.stream()方法是采用串行流的方式，这种是按照顺序往下查找的，
      * 而并行流的方式是多个线程同时查找，谁先找到就用谁的结果。
