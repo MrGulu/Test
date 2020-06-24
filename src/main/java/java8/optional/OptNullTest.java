@@ -37,7 +37,7 @@ public class OptNullTest {
     public void test2() {
         Emp3 emp3 = new Emp3("tang", 18, 9999.99);
         System.out.println(test2MethodJava7(emp3));
-        System.out.println(test2MethodJava7(emp3));
+        System.out.println(test2MethodJava8(emp3));
         System.out.println("********************************");
         System.out.println(test2MethodJava7(null));
         System.out.println(test2MethodJava8(null));
@@ -65,7 +65,7 @@ public class OptNullTest {
     public void test3() {
         Emp3 emp3 = new Emp3("tang", 18, 9999.99);
         System.out.println(test3MethodJava7(emp3));
-        System.out.println(test3MethodJava7(emp3));
+        System.out.println(test3MethodJava8(emp3));
         System.out.println("********************************");
         System.out.println(test3MethodJava7(null));
         System.out.println(test3MethodJava8(null));
@@ -97,7 +97,7 @@ public class OptNullTest {
     public void test4() {
         Emp3 emp3 = new Emp3("tang", 18, 9999.99);
         System.out.println(test4MethodJava7(emp3));
-        System.out.println(test4MethodJava7(emp3));
+        System.out.println(test4MethodJava8(emp3));
         System.out.println("********************************");
         System.out.println(test4MethodJava7(null));
         System.out.println(test4MethodJava8(null));
