@@ -43,12 +43,26 @@ public class StreamTest1 {
     /**
      * Stream<T> limit(long maxSize);
      * 只拿出流中的前maxSize条元素，与skip互补
+     * ps:
+     * limit(3)那么会结合前面的filter来从emps里获取元素过滤，当达到limit(3)的数量时，
+     * 就不会继续取emps中剩下的元素了！很智能。
+     * 通过调试时Trace Current Stream Chain追踪发现。
      */
     @Test
     public void test2() {
         emps.stream()
                 .filter(emp3 -> emp3.getSalary() >= 6666.66)
                 .limit(2)
+                .forEach(System.out::println);
+        System.out.println("********************************");
+        emps.stream()
+                .filter(emp3 -> emp3.getSalary() >= 6666.66)
+                .limit(3)
+                .forEach(System.out::println);
+        System.out.println("********************************");
+        emps.stream()
+                .filter(emp3 -> emp3.getSalary() >= 5555.55)
+                .limit(4)
                 .forEach(System.out::println);
     }
 

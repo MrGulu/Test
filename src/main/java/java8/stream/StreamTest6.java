@@ -242,7 +242,7 @@ public class StreamTest6 {
             }
         }
 
-        System.out.println();
+        System.out.println("***********************************");
 
         //拼接
         /**
@@ -253,7 +253,7 @@ public class StreamTest6 {
                 .collect(Collectors.joining());
         System.out.println(collect);
 
-        System.out.println();
+        System.out.println("***********************************");
 
         //分隔符
         /**
@@ -267,7 +267,7 @@ public class StreamTest6 {
         String[] split = collect1.split(",");
         System.out.println(Arrays.toString(split));
 
-        System.out.println();
+        System.out.println("***********************************");
 
         //分隔符以及前缀、后缀
         /**

@@ -36,8 +36,10 @@ public class StreamPreTest {
         /*4. 创建无限流*/
         /*4.1 迭代*/
         Stream<Integer> stream4 = Stream.iterate(0, x -> x + 1);
+        stream4.limit(10).forEach(System.out::println);
+        System.out.println("*******************************************");
         /*4.1 生成*/
         Stream<Double> stream5 = Stream.generate(Math::random);
-        stream5.forEach(System.out::println);
+        stream5.limit(10).forEach(System.out::println);
     }
 }
