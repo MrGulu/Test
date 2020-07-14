@@ -44,10 +44,10 @@ public class ListLoopRemove {
 
     @Test
     public void test2() {
-        String str1 = new String("abcde");
-        String str2 = new String("abcde");
-        String str3 = new String("abcde");
-        String str4 = new String("abcde");
+        String str1 = new String("a");
+        String str2 = new String("ab");
+        String str3 = new String("abc");
+        String str4 = new String("abcd");
         String str5 = new String("abcde");
         List<String> list = new ArrayList<>();
 
@@ -56,36 +56,51 @@ public class ListLoopRemove {
         list.add(str3);
         list.add(str4);
         list.add(str5);
+
+        List<String> copy1 = new ArrayList(list);
         /*1.倒过来遍历*/
-        for (int i = list.size() - 1; i >= 0; i--) {
-            if (list.get(i).startsWith("abcde")) {
-                list.remove(i);
+        for (int i = copy1.size() - 1; i >= 0; i--) {
+            if (copy1.get(i).startsWith("abcde")) {
+                copy1.remove(i);
+                copy1.add("add element");
             }
         }
-        System.out.println(list);
+        System.out.println(copy1);
+
+        List<String> copy2 = new ArrayList(list);
         /*2.每移除一个元素以后再把i移回来*/
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).startsWith("abcde")) {
-                list.remove(i);
+        for (int i = 0; i < copy2.size(); i++) {
+            if (copy2.get(i).startsWith("abcde")) {
+                copy2.remove(i);
                 i = i - 1;
+                copy2.add("add element");
             }
         }
-        System.out.println(list);
+        System.out.println(copy2);
+
+        List<String> copy3 = new ArrayList(list);
         /*3.1.使用iterator.remove()方法删除*/
 //        Iterator<String> iterator = list.iterator();
         /** 使用ListIterator可以添加元素，向前遍历，获取索引等操*/
-        ListIterator<String> iterator = list.listIterator();
+        /**
+         *  1.如果只是使用Iterator类型对象，那么只能使用remove方法，不能添加元素(因为普通的Iterator对象没有add方法，而ListIterator有add方法)
+         *  2.如果想添加元素，需要使用ListIterator对象，该对象也支持remove方法等一些针对于list的额外方法，非常方便。
+         */
+        ListIterator<String> iterator = copy3.listIterator();
         while (iterator.hasNext()) {
             if (iterator.next().startsWith("abcde")) {
                 iterator.remove();
+                iterator.add("add element");
             }
         }
-        System.out.println(list);
+        System.out.println(copy3);
 
+        List<String> copy4 = new ArrayList(list);
         /*3.2.使用list.remove()方法删除*/
         //底层还是使用iterator进行操作
-        list.removeIf(o -> o.startsWith("abcde"));
-        System.out.println(list);
+        copy4.removeIf(o -> o.startsWith("abcde"));
+        copy4.add("add element");
+        System.out.println(copy4);
     }
 
     /**
@@ -258,7 +273,7 @@ public class ListLoopRemove {
 
 /**
  * 总结：
- * 1.在使用Iterator进行遍历时，不能使用list对象进行remove或add操作，要是用iterator对象操作
+ * 1.在使用Iterator进行遍历时，不能使用list对象进行remove或add操作，要用iterator对象操作。
  * 2.在使用List进行遍历时，可以使用list对象进行remove或add操作，但是为了保证操作正确，需要进行
  * 相应的操作，详见test2()。
  * 也可以在正常遍历的情况下，remove之后紧接着执行add操作，这样size大小是不变的，所以不会引发相应错误。
