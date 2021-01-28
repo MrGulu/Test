@@ -1,4 +1,4 @@
-package switchTest;
+package forloopAndswitchTest;
 
 import org.junit.Test;
 
@@ -47,15 +47,15 @@ public class SwitchTest {
 
     @Test
     public void test3() {
-        String a = "a";
+        String a = "b";
         switch (a) {
             case "a":
                 System.out.println("aaa");
+                break;
             case "b":
                 System.out.println("bbb");
             case "c":
                 System.out.println("ccc");
-                break;
             default:
                 System.out.println("default");
         }
