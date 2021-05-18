@@ -112,7 +112,7 @@ public class OptionalTest {
         name = Optional
                 .ofNullable(domain)
                 .map(Student::getName)
-                .orElse("-------");
+                .orElse("default");
         System.out.println(name);
     }
 
