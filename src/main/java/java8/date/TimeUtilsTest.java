@@ -78,9 +78,9 @@ public class TimeUtilsTest {
 
     @Test
     public void chronoUnitTest2() {
-        LocalDate begin = LocalDate.of(2021, 2, 28);
-        LocalDate end = LocalDate.of(2021, 5, 23);
+        LocalDate begin = LocalDate.of(2021, 3, 7);
+        LocalDate end = LocalDate.of(2021, 6, 15);
         long between = ChronoUnit.DAYS.between(begin, end);
-        System.out.println(between);
+        System.out.println("时间间隔"+between+"天");
     }
 }
