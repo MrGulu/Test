@@ -82,7 +82,7 @@
         <!-- json版本号 -->
         <jackson.version>2.5.0</jackson.version>
         <!-- shiro版本号 -->
-        <shiro.version>1.2.2</shiro.version>
+        <shiro.version>1.7.1</shiro.version>
     </properties>
 
     <dependencies>
